@@ -1,0 +1,9 @@
+{
+  "name": "Zen Tips",
+  "short_name": "Zen Tips",
+  "description": "Mindful wisdom, practical calm, and modern Zen for everyday life.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f6f1e8",
+  "theme_color": "#c86b3c"
+}
