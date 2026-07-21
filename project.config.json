@@ -1,0 +1,35 @@
+{
+  "$schema": "https://raw.githubusercontent.com/stokewell/syntax/main/consumer/schema/syntax-project.schema.json",
+  "schemaVersion": 1,
+  "syntaxVersion": "1.2.0",
+  "project": {
+    "name": "Zen Tips",
+    "slug": "zen-tips",
+    "description": "Mindful wisdom for staying calm, present, and useful in ordinary life.",
+    "author": "Zen Tips",
+    "canonicalUrl": "https://stokewell.github.io/syntax-test/",
+    "repositoryUrl": "https://github.com/stokewell/syntax-test",
+    "primaryAction": {
+      "label": "Explore wisdom paths",
+      "destination": "#paths"
+    },
+    "secondaryAction": {
+      "label": "Try calm breathing",
+      "destination": "#breathing"
+    }
+  },
+  "recipe": {
+    "id": "blank",
+    "version": 1,
+    "data": {
+      "eyebrow": "Mindful wisdom without the incense cloud",
+      "note": "Small reminders for meeting ordinary life with a little more presence and a little less gripping.",
+      "footerNote": "A calmer corner of the internet"
+    }
+  },
+  "visualDirection": "editorial",
+  "accentColor": "#B85C3C",
+  "features": ["theme"],
+  "mode": "prototype",
+  "deployment": "github-pages-root"
+}
