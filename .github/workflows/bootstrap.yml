@@ -1,0 +1,68 @@
+name: Bootstrap Zen Tips with Syntax
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  bootstrap:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out test repository
+        uses: actions/checkout@v4
+
+      - name: Check out Syntax
+        uses: actions/checkout@v4
+        with:
+          repository: stokewell/syntax
+          path: _syntax
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Copy Syntax starter
+        run: |
+          rsync -a _syntax/ ./ \
+            --exclude .git \
+            --exclude project.config.json \
+            --exclude bootstrap/ \
+            --exclude .github/workflows/bootstrap.yml
+
+      - name: Generate Consumer Mode project
+        run: |
+          npm install --ignore-scripts
+          npm run setup -- --config project.config.json --output . --yes
+
+      - name: Download Zen Tips imagery
+        run: |
+          mkdir -p assets/icons
+          curl --fail --location https://www.zentips.com/assets/icons/clouds.png --output assets/icons/clouds.png
+          curl --fail --location https://www.zentips.com/assets/icons/mountain.png --output assets/icons/mountain.png
+          curl --fail --location https://www.zentips.com/assets/icons/8track.png --output assets/icons/8track.png
+          curl --fail --location https://www.zentips.com/assets/icons/enso.png --output assets/icons/enso.png
+          curl --fail --location https://www.zentips.com/assets/icons/tree-hand.png --output assets/icons/tree-hand.png
+          curl --fail --location https://www.zentips.com/assets/icons/infinity.png --output assets/icons/infinity.png
+
+      - name: Apply Zen Tips content and composition
+        run: python bootstrap/customize.py
+
+      - name: Verify generated project
+        run: |
+          npm install --ignore-scripts
+          npm run scan:residue
+          npm run prepare:ship
+
+      - name: Commit generated site
+        run: |
+          rm -rf _syntax bootstrap project.config.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Build Zen Tips dogfood site with Syntax"
+          git push
