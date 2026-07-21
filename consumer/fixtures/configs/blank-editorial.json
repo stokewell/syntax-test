@@ -1,0 +1,32 @@
+{
+  "$schema": "https://raw.githubusercontent.com/stokewell/syntax/main/consumer/schema/syntax-project.schema.json",
+  "schemaVersion": 1,
+  "syntaxVersion": "1.2.0",
+  "project": {
+    "name": "Field Notes",
+    "slug": "field-notes",
+    "description": "A quiet starting point for an independent idea that needs clarity before complexity.",
+    "author": "Example Studio",
+    "canonicalUrl": null,
+    "repositoryUrl": null,
+    "primaryAction": {
+      "label": "Begin here",
+      "destination": "#main-content"
+    },
+    "secondaryAction": null
+  },
+  "recipe": {
+    "id": "blank",
+    "version": 1,
+    "data": {
+      "eyebrow": "Notes toward something useful",
+      "note": "Start with the strongest sentence. Add structure only when the idea asks for it.",
+      "footerNote": "An Example Studio experiment"
+    }
+  },
+  "visualDirection": "editorial",
+  "accentColor": "#A33A2B",
+  "features": [],
+  "mode": "prototype",
+  "deployment": "none"
+}

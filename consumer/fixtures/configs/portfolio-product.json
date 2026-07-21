@@ -1,0 +1,85 @@
+{
+  "$schema": "https://raw.githubusercontent.com/stokewell/syntax/main/consumer/schema/syntax-project.schema.json",
+  "schemaVersion": 1,
+  "syntaxVersion": "1.2.0",
+  "project": {
+    "name": "Nico Hart",
+    "slug": "nico-hart",
+    "description": "Product design, creative technology, and prototypes that make unfamiliar ideas usable.",
+    "author": "Nico Hart",
+    "canonicalUrl": "https://example.com/nico/",
+    "repositoryUrl": "https://github.com/example/nico",
+    "primaryAction": {
+      "label": "Start a conversation",
+      "destination": "mailto:nico@example.com"
+    },
+    "secondaryAction": {
+      "label": "View GitHub",
+      "destination": "https://github.com/example/nico"
+    }
+  },
+  "recipe": {
+    "id": "portfolio",
+    "version": 1,
+    "data": {
+      "role": "Product designer and creative technologist",
+      "intro": "I build useful interfaces, playful tools, and working prototypes that turn an ambitious idea into something people can understand immediately.",
+      "aboutTitle": "From loose possibility to working system.",
+      "about": "I work across product strategy, interaction design, visual systems, and front-end development. The goal is not simply to make an interface attractive; it is to make the whole idea easier to believe and use.",
+      "currently": "Testing small products in public and turning the strongest ones into durable tools.",
+      "closingEyebrow": "Available for the right problem",
+      "closingTitle": "Bring the difficult part first.",
+      "closingBody": "The most interesting projects usually begin where the product, interface, and story are still tangled together.",
+      "dataBacked": true,
+      "projects": [
+        {
+          "title": "Orbit",
+          "status": "Live product",
+          "description": "A lightweight planning tool that turns scattered commitments into one visible operating rhythm.",
+          "url": "https://example.com/orbit",
+          "tags": ["Product", "Interaction", "Systems"]
+        },
+        {
+          "title": "Common Ground",
+          "status": "Prototype",
+          "description": "A structured conversation interface for comparing disagreement without flattening meaningful differences.",
+          "url": "https://example.com/common-ground",
+          "tags": ["Research", "Interface", "Civic tech"]
+        },
+        {
+          "title": "Pulseboard",
+          "status": "Internal tool",
+          "description": "A compact operating dashboard for teams that need decisions, risks, and momentum in one place.",
+          "url": "https://example.com/pulseboard",
+          "tags": ["Dashboard", "Workflow", "Prototyping"]
+        },
+        {
+          "title": "Elsewhere",
+          "status": "Interactive experiment",
+          "description": "A generative travel journal that reorganizes memories by mood, texture, and accidental connection.",
+          "url": "https://example.com/elsewhere",
+          "tags": ["Creative code", "Generative", "Editorial"]
+        },
+        {
+          "title": "Latch",
+          "status": "Concept validation",
+          "description": "A focused onboarding system for products whose value is easy to lose inside a long setup process.",
+          "url": "https://example.com/latch",
+          "tags": ["Onboarding", "UX", "Conversion"]
+        },
+        {
+          "title": "Tiny Signals",
+          "status": "Open source",
+          "description": "A small library of humane interface states for loading, saving, syncing, and uncertainty.",
+          "url": "https://example.com/tiny-signals",
+          "tags": ["Components", "Accessibility", "Open source"]
+        }
+      ]
+    }
+  },
+  "visualDirection": "product",
+  "accentColor": "#5946D2",
+  "features": ["theme"],
+  "mode": "prototype",
+  "deployment": "github-pages-root"
+}

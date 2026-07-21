@@ -1,0 +1,67 @@
+{
+  "$schema": "https://raw.githubusercontent.com/stokewell/syntax/main/consumer/schema/syntax-project.schema.json",
+  "schemaVersion": 1,
+  "syntaxVersion": "1.2.0",
+  "project": {
+    "name": "Relay",
+    "slug": "relay",
+    "description": "A focused release-feedback product that turns scattered reactions into one clear next decision.",
+    "author": "Example Studio",
+    "canonicalUrl": "https://example.com/relay/",
+    "repositoryUrl": "https://github.com/example/relay",
+    "primaryAction": {
+      "label": "Start a feedback loop",
+      "destination": "#features"
+    },
+    "secondaryAction": {
+      "label": "View documentation",
+      "destination": "https://example.com/relay/docs"
+    }
+  },
+  "recipe": {
+    "id": "product",
+    "version": 1,
+    "data": {
+      "eyebrow": "Release feedback without the fog",
+      "headline": "Know what changed, what mattered, and what to do next.",
+      "proof": "Relay collects structured reactions after each release and converts them into a visible decision trail for product teams.",
+      "featureTitle": "A tighter feedback system",
+      "features": [
+        {
+          "title": "Focused prompts",
+          "description": "Ask the smallest useful question while the release is still fresh in everyone’s mind."
+        },
+        {
+          "title": "Visible patterns",
+          "description": "Group repeated signals without losing the original comments or their context."
+        },
+        {
+          "title": "Decision history",
+          "description": "Record what changed next so feedback becomes part of the product memory."
+        }
+      ],
+      "stepsTitle": "From release to next move",
+      "steps": [
+        {
+          "title": "Publish",
+          "description": "Connect a release or milestone to one short feedback request."
+        },
+        {
+          "title": "Review",
+          "description": "See themes, disagreements, and unanswered questions in one place."
+        },
+        {
+          "title": "Decide",
+          "description": "Turn the useful signal into an explicit next action and owner."
+        }
+      ],
+      "closingTitle": "Make every release teach the next one.",
+      "closingBody": "Start with a single team and one active project."
+    }
+  },
+  "visualDirection": "technical",
+  "accentColor": "#176B87",
+  "features": ["theme"],
+  "mode": "prototype",
+  "deployment": "github-pages-root"
+}

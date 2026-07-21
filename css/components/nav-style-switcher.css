@@ -1,0 +1,216 @@
+/* 
+ * Navigation Style Switcher
+ * A control to toggle between different navigation styles with a slot machine effect
+ */
+
+/* Style switcher controls container */
+.nav-style-switcher {
+  margin-right: 0.75rem;
+  position: relative;
+}
+
+.style-switcher-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 0;
+}
+
+/* Individual switcher buttons */
+.switcher-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--color-text);
+  transition: all 0.15s var(--ease-in-out);
+  opacity: 0.6;
+}
+
+.switcher-btn:hover {
+  opacity: 1;
+  color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+.switcher-btn.switcher-down:hover {
+  transform: translateY(1px);
+}
+
+.switcher-btn:focus {
+  outline: none;
+}
+
+.switcher-btn:focus-visible {
+  color: var(--color-primary);
+  opacity: 1;
+  /* Subtle focus style that doesn't use an outline */
+  box-shadow: 0 0 0 1px rgba(var(--color-primary-rgb), 0.2);
+}
+
+.switcher-btn:active {
+  transform: scale(0.9);
+}
+
+.switcher-btn[disabled] {
+  opacity: 0.2;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Navigation styles container which will roll like a slot machine */
+.nav-styles-container {
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  left: 0;
+  top: 0;
+  height: 100%;
+}
+
+.nav-styles-wrapper {
+  position: relative;
+  transition: transform 0.8s cubic-bezier(0.44, 0.23, 0.22, 0.96);
+  width: 100%;
+}
+
+/* Each individual navigation style */
+.nav-style {
+  width: 100%;
+  position: relative;
+}
+
+/* Active navigation style indicator */
+.nav-style-indicator {
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-in-out);
+}
+
+.nav-style.active .nav-style-indicator {
+  opacity: 1;
+}
+
+/* Animation for the slot machine effect */
+@keyframes navStyleSlotDown {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  20% {
+    transform: translateY(20%);
+    opacity: 0;
+  }
+  21% {
+    transform: translateY(-80%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes navStyleSlotUp {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  20% {
+    transform: translateY(-20%);
+    opacity: 0;
+  }
+  21% {
+    transform: translateY(80%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Applied to the list during transition */
+.nav-transitioning .nav-list {
+  animation: navStyleSlotDown 0.6s cubic-bezier(0.44, 0.23, 0.22, 0.96) forwards;
+}
+
+.nav-transitioning.direction-up .nav-list {
+  animation: navStyleSlotUp 0.6s cubic-bezier(0.44, 0.23, 0.22, 0.96) forwards;
+}
+
+/* Visual feedback is now handled through inline styles */
+
+/* Classes for the different nav styles */
+.header[data-nav-style="style1"] .nav-list {
+  /* Current style - modern-header.css has this styling already */
+}
+
+.header[data-nav-style="style2"] .nav-list {
+  gap: 0;
+}
+
+.header[data-nav-style="style2"] .nav-item {
+  position: relative;
+}
+
+.header[data-nav-style="style2"] .nav-link,
+.header[data-nav-style="style2"] .dropdown-toggle {
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  margin: 0 0.25rem;
+}
+
+.header[data-nav-style="style2"] .nav-link:hover,
+.header[data-nav-style="style2"] .dropdown-toggle:hover {
+  background-color: rgba(var(--color-text-rgb), 0.05);
+}
+
+.header[data-nav-style="style2"] .nav-link.active {
+  background-color: rgba(var(--color-primary-rgb), 0.1);
+}
+
+.header[data-nav-style="style2"] .nav-link::after,
+.header[data-nav-style="style2"] .dropdown-toggle::after {
+  display: none;
+}
+
+.header[data-nav-style="style3"] .nav-list {
+  gap: 0.25rem;
+}
+
+.header[data-nav-style="style3"] .nav-link,
+.header[data-nav-style="style3"] .dropdown-toggle {
+  padding: 0.6rem 1.25rem;
+  border-radius: 50px;
+  background-color: transparent;
+  transition: all 0.2s var(--ease-in-out);
+}
+
+.header[data-nav-style="style3"] .nav-link:hover,
+.header[data-nav-style="style3"] .dropdown-toggle:hover {
+  background-color: rgba(var(--color-text-rgb), 0.05);
+}
+
+.header[data-nav-style="style3"] .nav-link.active {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.header[data-nav-style="style3"] .nav-link::after,
+.header[data-nav-style="style3"] .dropdown-toggle::after {
+  display: none;
+}

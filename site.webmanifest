@@ -1,0 +1,14 @@
+{
+  "name": "Syntax — Typography-first website starter",
+  "short_name": "Syntax",
+  "description": "A lightweight, typography-first website starter and design system.",
+  "icons": [
+    { "src": "favicon.ico", "sizes": "48x48", "type": "image/x-icon" },
+    { "src": "favicon-32x32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ],
+  "theme_color": "#087f7f",
+  "background_color": "#fbfaf8",
+  "display": "standalone",
+  "start_url": "./demo/"
+}

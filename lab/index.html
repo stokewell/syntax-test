@@ -1,0 +1,857 @@
+<!doctype html>
+<html lang="en" data-theme-preference="system">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Component Lab — Syntax</title>
+    <meta
+      name="description"
+      content="The exhaustive Syntax component, layout, typography, media, accessibility, and motion proving ground."
+    />
+    <meta name="author" content="Stokewell" />
+    <link rel="canonical" href="https://stokewell.github.io/syntax/lab/" />
+
+    <link rel="icon" href="../favicon.ico" />
+    <link rel="manifest" href="../site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      id="dynamic-fonts-live"
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    />
+
+    <script>
+      (() => {
+        const saved = localStorage.getItem('syntax-theme-preference') || 'system';
+        const resolved =
+          saved === 'system'
+            ? matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light'
+            : saved;
+        document.documentElement.dataset.themePreference = saved;
+        document.documentElement.dataset.theme = resolved;
+      })();
+    </script>
+
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="./lab.css" />
+  </head>
+  <body id="top">
+    <a class="skip-to-content" href="#main-content">Skip to content</a>
+
+    <header class="header" id="main-header">
+      <div class="container header-container">
+        <a class="logo" href="../demo/" aria-label="Syntax overview">
+          <span class="logo-text">Syn<span class="logo-accent">tax</span></span>
+        </a>
+
+        <nav class="main-nav" aria-label="Primary navigation">
+          <ul class="nav-list">
+            <li class="nav-item"><a class="nav-link" href="../demo/">Overview</a></li>
+            <li class="nav-item"><a class="nav-link active" href="#top">Component Lab</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/stokewell/syntax">GitHub</a>
+            </li>
+          </ul>
+
+          <button
+            class="menu-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="mobile-navigation"
+            aria-label="Open navigation"
+          >
+            <span></span><span></span><span></span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="mobile-nav" id="mobile-navigation" aria-hidden="true">
+        <ul class="mobile-nav-list">
+          <li class="mobile-nav-item"><a class="mobile-nav-link" href="../demo/">Overview</a></li>
+          <li class="mobile-nav-item"><a class="mobile-nav-link" href="#top">Component Lab</a></li>
+          <li class="mobile-nav-item">
+            <a class="mobile-nav-link" href="https://github.com/stokewell/syntax">GitHub</a>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <section class="lab-hero" aria-labelledby="lab-title">
+        <div class="container lab-hero-inner">
+          <p class="eyebrow">Framework proving ground</p>
+          <h1 id="lab-title">Component Lab</h1>
+          <p class="lab-lead">
+            Every public Syntax capability in one place: responsive media, native Web Components,
+            standard UI, production layouts, typography stress tests, and the complete motion
+            toolkit.
+          </p>
+          <div class="cluster lab-hero-actions">
+            <a class="btn" href="#media">Start testing</a>
+            <a class="btn-outline" href="../demo/">Back to overview</a>
+          </div>
+          <ul class="lab-status" aria-label="Lab principles">
+            <li>Uses shipped framework files</li>
+            <li>Demo code stays out of the production bundle</li>
+            <li>Keyboard and reduced-motion aware</li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="lab-shell container">
+        <aside class="lab-nav-wrap" aria-label="Component Lab sections">
+          <nav class="lab-nav">
+            <p class="lab-nav-title">In this lab</p>
+            <a href="#media">Responsive media</a>
+            <a href="#web-components">Web Components</a>
+            <a href="#ui">Standard UI</a>
+            <a href="#layouts">Layouts</a>
+            <a href="#typography">Typography</a>
+            <a href="#motion">Motion</a>
+          </nav>
+        </aside>
+
+        <div class="lab-content">
+          <section class="lab-section" id="media" aria-labelledby="media-title">
+            <header class="lab-section-header">
+              <p class="eyebrow">Responsive media</p>
+              <h2 id="media-title">Images as functional examples</h2>
+              <p>
+                These examples restore the original image demonstrations and prove aspect ratio,
+                lazy loading, captions, object fitting, and image-bearing cards.
+              </p>
+            </header>
+
+            <div class="lab-grid lab-grid-2">
+              <article class="lab-example">
+                <div class="lab-example-heading">
+                  <div>
+                    <p class="lab-kicker">Native custom element</p>
+                    <h3>Responsive Image</h3>
+                  </div>
+                  <span class="lab-chip">restored</span>
+                </div>
+                <responsive-image
+                  src="../demo-images/geese.jpg"
+                  alt="Geese flying in formation at sunset"
+                  aspect-ratio="16:9"
+                  lazy
+                >
+                  <span slot="caption"
+                    >Geese flying in formation, rendered through &lt;responsive-image&gt;.</span
+                  >
+                </responsive-image>
+                <pre class="code-block"><code>&lt;responsive-image
+  src="geese.jpg"
+  alt="Geese flying in formation at sunset"
+  aspect-ratio="16:9"
+  lazy
+&gt;
+  &lt;span slot="caption"&gt;Caption text&lt;/span&gt;
+&lt;/responsive-image&gt;</code></pre>
+              </article>
+
+              <article class="lab-example">
+                <div class="lab-example-heading">
+                  <div>
+                    <p class="lab-kicker">Native custom element</p>
+                    <h3>Image Card</h3>
+                  </div>
+                  <span class="lab-chip">interactive</span>
+                </div>
+                <custom-card
+                  id="image-custom-card"
+                  title="Card with Image"
+                  image="../demo-images/dolphins.jpg"
+                  image-alt="Dolphins swimming in blue water"
+                  shadow-level="2"
+                  clickable
+                >
+                  <p>
+                    This card exposes image, shadow, content, footer, click, and keyboard behavior.
+                  </p>
+                  <div slot="footer">
+                    <span class="small">Activate the whole card</span>
+                  </div>
+                </custom-card>
+                <p class="lab-output" id="card-demo-output" aria-live="polite">
+                  Activate the card with a click, Enter, or Space.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section class="lab-section" id="web-components" aria-labelledby="web-components-title">
+            <header class="lab-section-header">
+              <p class="eyebrow">Native Web Components</p>
+              <h2 id="web-components-title">Encapsulated behavior without a framework</h2>
+              <p>
+                Syntax ships four custom elements: responsive images, cards, toggle switches, and
+                accessible tabs.
+              </p>
+            </header>
+
+            <div class="lab-stack">
+              <article class="lab-example">
+                <div class="lab-example-heading">
+                  <div>
+                    <p class="lab-kicker">Card variants</p>
+                    <h3>Custom Card</h3>
+                  </div>
+                </div>
+                <div class="lab-grid lab-grid-2">
+                  <custom-card title="Basic Card" shadow-level="1">
+                    <p>A plain content card with a title and slotted footer.</p>
+                    <div slot="footer">
+                      <button class="btn-outline-sm" type="button">Learn more</button>
+                    </div>
+                  </custom-card>
+                  <custom-card title="Clickable Card" shadow-level="2" clickable>
+                    <p>
+                      Clickable cards expose a semantic role, focus state, and activation event.
+                    </p>
+                    <div slot="footer">
+                      <span class="small">Press Enter or Space</span>
+                    </div>
+                  </custom-card>
+                </div>
+              </article>
+
+              <article class="lab-example">
+                <div class="lab-example-heading">
+                  <div>
+                    <p class="lab-kicker">State matrix</p>
+                    <h3>Toggle Switch</h3>
+                  </div>
+                </div>
+                <div class="toggle-matrix">
+                  <div>
+                    <p class="lab-label">Default</p>
+                    <toggle-switch label="Default toggle"></toggle-switch>
+                  </div>
+                  <div>
+                    <p class="lab-label">Pre-checked</p>
+                    <toggle-switch label="Pre-checked toggle" checked></toggle-switch>
+                  </div>
+                  <div>
+                    <p class="lab-label">Disabled</p>
+                    <toggle-switch label="Disabled toggle" disabled></toggle-switch>
+                  </div>
+                  <div>
+                    <p class="lab-label">Live state</p>
+                    <toggle-switch
+                      id="interactive-toggle"
+                      label="Try toggling me"
+                      checked
+                    ></toggle-switch>
+                    <p class="lab-output" id="toggle-demo-output" aria-live="polite">
+                      Toggle state: ON
+                    </p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="lab-example">
+                <div class="lab-example-heading">
+                  <div>
+                    <p class="lab-kicker">Arrow-key navigation</p>
+                    <h3>Tabs Container</h3>
+                  </div>
+                </div>
+                <tabs-container>
+                  <tab-item label="First Tab" selected>
+                    <h4>First tab content</h4>
+                    <p>Use Left, Right, Home, and End to move through the tab list.</p>
+                  </tab-item>
+                  <tab-item label="Second Tab">
+                    <h4>Second tab content</h4>
+                    <p>
+                      Each tab is associated with a labeled panel and retains its original content.
+                    </p>
+                  </tab-item>
+                  <tab-item label="Third Tab">
+                    <h4>Third tab content</h4>
+                    <p>The implementation uses the native Custom Elements and Shadow DOM APIs.</p>
+                  </tab-item>
+                </tabs-container>
+              </article>
+            </div>
+          </section>
+
+          <section class="lab-section" id="ui" aria-labelledby="ui-title">
+            <header class="lab-section-header">
+              <p class="eyebrow">Standard HTML and CSS</p>
+              <h2 id="ui-title">UI components without custom elements</h2>
+              <p>
+                The standard component layer remains usable with ordinary semantic markup and no
+                JavaScript unless behavior requires it.
+              </p>
+            </header>
+
+            <div class="lab-stack">
+              <article class="lab-example">
+                <h3>Buttons</h3>
+                <div class="cluster">
+                  <button class="btn" type="button">Primary Button</button>
+                  <button class="btn-secondary" type="button">Secondary Button</button>
+                  <button class="btn-outline" type="button">Outline Button</button>
+                  <button class="btn-contrast" type="button">Contrast Button</button>
+                  <button class="btn" type="button" disabled>Disabled Button</button>
+                </div>
+              </article>
+
+              <article class="lab-example">
+                <h3>Alerts</h3>
+                <div class="lab-stack lab-stack-tight">
+                  <div class="alert alert-success">
+                    <strong>Success!</strong> Your changes have been saved.
+                  </div>
+                  <div class="alert alert-warning">
+                    <strong>Warning!</strong> This action cannot be undone.
+                  </div>
+                  <div class="alert alert-error">
+                    <strong>Error!</strong> Something went wrong. Please try again.
+                  </div>
+                </div>
+              </article>
+
+              <article class="lab-example">
+                <h3>Cards</h3>
+                <div class="lab-grid lab-grid-3">
+                  <div class="card">
+                    <h4 class="card-title">Card Title</h4>
+                    <p>A simple card that groups related information.</p>
+                  </div>
+
+                  <div class="card">
+                    <div class="lab-media-frame">
+                      <img
+                        src="../demo-images/sandy-bottom.png"
+                        alt="A sandy underwater scene"
+                        loading="lazy"
+                      />
+                    </div>
+                    <h4 class="card-title">CSS Card with Image</h4>
+                    <p>This restores the original aspect-ratio and media-cover demonstration.</p>
+                  </div>
+
+                  <div class="card lab-interactive-card" tabindex="0">
+                    <h4 class="card-title">Interactive Card</h4>
+                    <p>
+                      Hover and focus states make the affordance visible to mouse and keyboard
+                      users.
+                    </p>
+                    <div class="card-footer">
+                      <a class="btn-outline-sm" href="#accordions">Learn more</a>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="lab-example" id="accordions">
+                <h3>Accordions</h3>
+                <details>
+                  <summary>What is a typography-first approach?</summary>
+                  <div>
+                    <p>
+                      It establishes readable type, hierarchy, line length, and vertical rhythm
+                      before decorative layers are added.
+                    </p>
+                  </div>
+                </details>
+                <details>
+                  <summary>How do design tokens improve consistency?</summary>
+                  <div>
+                    <p>
+                      Tokens turn color, spacing, typography, motion, and elevation decisions into
+                      named reusable values.
+                    </p>
+                  </div>
+                </details>
+              </article>
+
+              <article class="lab-example">
+                <h3>Modal Dialog</h3>
+                <p>
+                  Focus moves into the dialog, stays within it, and returns to the trigger after
+                  closing.
+                </p>
+                <button class="btn" type="button" data-modal-target="lab-modal">Open modal</button>
+              </article>
+            </div>
+          </section>
+
+          <section class="lab-section" id="layouts" aria-labelledby="layouts-title">
+            <header class="lab-section-header">
+              <p class="eyebrow">Production layout primitives</p>
+              <h2 id="layouts-title">Real structures, not static diagrams</h2>
+              <p>
+                The previews below use the same layout classes shipped in <code>syntax.css</code>.
+              </p>
+            </header>
+
+            <div class="lab-stack">
+              <article class="lab-example">
+                <h3>Blog Layout</h3>
+                <div class="layout layout-blog lab-layout-frame">
+                  <div class="main-content lab-layout-block lab-layout-main">Main content area</div>
+                  <aside class="sidebar lab-layout-block">Sidebar</aside>
+                </div>
+                <pre class="code-block"><code>&lt;div class="layout layout-blog"&gt;
+  &lt;main class="main-content"&gt;...&lt;/main&gt;
+  &lt;aside class="sidebar"&gt;...&lt;/aside&gt;
+&lt;/div&gt;</code></pre>
+              </article>
+
+              <article class="lab-example">
+                <h3>Portfolio Layout</h3>
+                <div class="layout-portfolio portfolio-3col lab-layout-frame">
+                  <div class="lab-portfolio-item">Portfolio 1</div>
+                  <div class="lab-portfolio-item">Portfolio 2</div>
+                  <div class="lab-portfolio-item">Portfolio 3</div>
+                  <div class="lab-portfolio-item">Portfolio 4</div>
+                  <div class="lab-portfolio-item">Portfolio 5</div>
+                  <div class="lab-portfolio-item">Portfolio 6</div>
+                </div>
+              </article>
+
+              <article class="lab-example">
+                <h3>Magazine Layout</h3>
+                <div class="layout-magazine lab-layout-frame">
+                  <div class="magazine-featured lab-layout-block lab-layout-featured">
+                    Featured article
+                  </div>
+                  <div class="magazine-split">
+                    <div class="lab-layout-block lab-layout-main">Main column</div>
+                    <div class="lab-layout-block">Side column</div>
+                  </div>
+                  <div class="magazine-grid lab-magazine-grid">
+                    <div class="lab-layout-block">Article 1</div>
+                    <div class="lab-layout-block">Article 2</div>
+                    <div class="lab-layout-block">Article 3</div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="lab-example">
+                <h3>Dashboard Layout</h3>
+                <div class="layout-dashboard lab-dashboard-preview">
+                  <header class="dashboard-header lab-layout-block">Dashboard header</header>
+                  <aside class="dashboard-sidebar lab-layout-block">Sidebar navigation</aside>
+                  <main class="dashboard-main lab-layout-block lab-layout-main">
+                    Dashboard content
+                  </main>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="lab-section" id="typography" aria-labelledby="typography-title">
+            <header class="lab-section-header">
+              <p class="eyebrow">Typography system</p>
+              <h2 id="typography-title">Editorial range and stress testing</h2>
+              <p>
+                The lab restores the complete hierarchy, inline elements, lists, long-copy tests,
+                multilingual samples, and right-to-left content.
+              </p>
+            </header>
+
+            <div class="lab-stack">
+              <article class="lab-example">
+                <p class="lab-kicker">Current font pairing</p>
+                <h3 id="current-font-title">EB Garamond + Plus Jakarta Sans</h3>
+                <div class="font-sample-grid">
+                  <div>
+                    <h4 id="heading-font-name">EB Garamond</h4>
+                    <p id="heading-font-sample" class="lab-alphabet">
+                      ABCDEFGHIJKLMNOPQRSTUVWXYZ<br />
+                      abcdefghijklmnopqrstuvwxyz<br />
+                      0123456789
+                    </p>
+                  </div>
+                  <div>
+                    <h4 id="body-font-name">Plus Jakarta Sans</h4>
+                    <p id="body-font-sample" class="lab-alphabet lab-alphabet-body">
+                      ABCDEFGHIJKLMNOPQRSTUVWXYZ<br />
+                      abcdefghijklmnopqrstuvwxyz<br />
+                      0123456789
+                    </p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="lab-example">
+                <h3>Standard Typography Elements</h3>
+                <div class="lab-grid lab-grid-2">
+                  <div class="lab-heading-stack">
+                    <h1>Heading 1</h1>
+                    <h2>Heading 2</h2>
+                    <h3>Heading 3</h3>
+                    <h4>Heading 4</h4>
+                    <h5>Heading 5</h5>
+                    <h6>Heading 6</h6>
+                  </div>
+                  <div>
+                    <p>
+                      This paragraph contains <strong>bold text</strong>, <em>italic text</em>,
+                      <a href="#typography">a hyperlink</a>, <code>inline code</code>, and
+                      <mark>highlighted text</mark>.
+                    </p>
+                    <p>
+                      Line length and line height are constrained to preserve a comfortable reading
+                      rhythm across viewport sizes.
+                    </p>
+                    <blockquote>
+                      “Typography is what language looks like.” <cite>— Ellen Lupton</cite>
+                    </blockquote>
+                    <p>Keyboard shortcut: <kbd>Ctrl</kbd> + <kbd>S</kbd></p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="lab-example">
+                <h3>Lists</h3>
+                <div class="lab-grid lab-grid-2">
+                  <div>
+                    <h4>Unordered List</h4>
+                    <ul>
+                      <li>Item one</li>
+                      <li>Item two with <a href="#typography">a link</a></li>
+                      <li>
+                        Item three
+                        <ul>
+                          <li>Nested item one</li>
+                          <li>Nested item two</li>
+                        </ul>
+                      </li>
+                      <li>Item four</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4>Ordered List</h4>
+                    <ol>
+                      <li>First item</li>
+                      <li>Second item</li>
+                      <li>
+                        Third item
+                        <ol>
+                          <li>Nested ordered item</li>
+                          <li>Another nested item</li>
+                        </ol>
+                      </li>
+                      <li>Fourth item</li>
+                    </ol>
+                  </div>
+                </div>
+                <h4>Definition List</h4>
+                <dl>
+                  <dt>Typography</dt>
+                  <dd>The art and technique of arranging written language.</dd>
+                  <dt>Vertical Rhythm</dt>
+                  <dd>Consistent spacing that creates harmony and reading flow.</dd>
+                  <dt>Design Tokens</dt>
+                  <dd>Named values representing reusable design decisions.</dd>
+                </dl>
+              </article>
+
+              <details class="lab-example typography-stress-tests">
+                <summary>
+                  <span>
+                    <span class="lab-kicker">Expandable test matrix</span>
+                    <strong>Typography Stress Tests</strong>
+                  </span>
+                </summary>
+                <div class="lab-stack">
+                  <div>
+                    <h3>Very Long Headlines</h3>
+                    <h1 class="long-headline">
+                      This is an extraordinarily, overwhelmingly, and unnecessarily lengthy heading
+                      designed specifically to test wrapping, spacing, and resilient line height
+                    </h1>
+                    <h2 class="long-headline">
+                      Another exceptionally long subheading that continues long enough to expose
+                      fragile typography decisions at narrow widths
+                    </h2>
+                  </div>
+
+                  <div>
+                    <h3>Justified Text</h3>
+                    <p class="lab-justified">
+                      Good typography must remain readable under less-than-ideal editorial choices.
+                      This paragraph is deliberately justified to expose spacing rivers, word gaps,
+                      and line-length weaknesses. The point is not to recommend justified text for
+                      the web, but to ensure the system degrades predictably when content authors
+                      use it.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3>Multilingual Typography</h3>
+                    <div class="multilingual-demo">
+                      <div>
+                        <h4>Chinese</h4>
+                        <p>你好，世界！这是一个测试中文字体渲染和行高表现的示例文本。</p>
+                        <h4>Japanese</h4>
+                        <p>
+                          こんにちは世界！これは日本語のフォントレンダリングを確認する文章です。
+                        </p>
+                      </div>
+                      <div>
+                        <h4>Arabic</h4>
+                        <p dir="rtl">
+                          مرحبا بالعالم! هذا نص لاختبار عرض الخط العربي واتجاه الكتابة.
+                        </p>
+                        <h4>Hebrew</h4>
+                        <p dir="rtl">
+                          שלום עולם! זוהי דוגמה לבדיקת טיפוגרפיה וכיוון כתיבה מימין לשמאל.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3>Deeply Nested Lists</h3>
+                    <ul>
+                      <li>
+                        First level
+                        <ul>
+                          <li>
+                            Second level
+                            <ul>
+                              <li>
+                                Third level
+                                <ul>
+                                  <li>Fourth level item one</li>
+                                  <li>Fourth level item two</li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </details>
+            </div>
+          </section>
+
+          <section class="lab-section" id="motion" aria-labelledby="motion-title">
+            <header class="lab-section-header">
+              <p class="eyebrow">Micro-animation framework</p>
+              <h2 id="motion-title">The complete restored motion toolkit</h2>
+              <p>
+                Every control uses the shipped <code>animationFramework</code> API and immediately
+                resolves to the final state when reduced motion is enabled.
+              </p>
+            </header>
+
+            <div class="lab-stack">
+              <article class="lab-example">
+                <h3>Basic Animation</h3>
+                <div class="motion-stage">
+                  <div id="basic-demo" class="motion-box">Box</div>
+                </div>
+                <div class="cluster">
+                  <button class="btn-outline-sm" type="button" data-basic-animation="fadeIn">
+                    Fade In
+                  </button>
+                  <button class="btn-outline-sm" type="button" data-basic-animation="fadeOut">
+                    Fade Out
+                  </button>
+                  <button class="btn-outline-sm" type="button" data-basic-animation="slideInRight">
+                    Slide In
+                  </button>
+                  <button class="btn-outline-sm" type="button" data-basic-animation="pulse">
+                    Pulse
+                  </button>
+                  <button class="btn-outline-sm" type="button" data-basic-animation="shake">
+                    Shake
+                  </button>
+                  <button class="btn-contrast btn-sm" id="basic-reset" type="button">Reset</button>
+                </div>
+              </article>
+
+              <article class="lab-example">
+                <h3>Animation Sequences</h3>
+                <div class="sequence-demo" aria-label="Five sequence items">
+                  <div class="sequence-item">1</div>
+                  <div class="sequence-item">2</div>
+                  <div class="sequence-item">3</div>
+                  <div class="sequence-item">4</div>
+                  <div class="sequence-item">5</div>
+                </div>
+                <div class="cluster">
+                  <button class="btn-outline-sm" id="play-sequence" type="button">
+                    Play Sequence
+                  </button>
+                  <button class="btn-outline-sm" id="play-staggered" type="button">
+                    Play Staggered
+                  </button>
+                </div>
+              </article>
+
+              <article class="lab-example">
+                <h3>Custom Animations</h3>
+                <div class="motion-stage">
+                  <div id="custom-demo" class="motion-text" data-original-text="Custom Animation">
+                    Custom Animation
+                  </div>
+                </div>
+                <div class="cluster">
+                  <button class="btn-outline-sm" type="button" data-custom-animation="typewriter">
+                    Typewriter
+                  </button>
+                  <button
+                    class="btn-outline-sm"
+                    type="button"
+                    data-custom-animation="letterSpacing"
+                  >
+                    Letter Spacing
+                  </button>
+                  <button class="btn-outline-sm" type="button" data-custom-animation="luxuryReveal">
+                    Luxury Reveal
+                  </button>
+                  <button class="btn-contrast btn-sm" id="custom-reset" type="button">Reset</button>
+                </div>
+              </article>
+
+              <article class="lab-example">
+                <h3>Scroll Animations</h3>
+                <p>Scroll these cards into view to test declarative data attributes.</p>
+                <div class="lab-grid lab-grid-3 scroll-animation-grid">
+                  <div
+                    class="motion-scroll-card"
+                    data-animation="fadeIn"
+                    data-animation-delay="100"
+                  >
+                    Fade In
+                  </div>
+                  <div
+                    class="motion-scroll-card"
+                    data-animation="slideInUp"
+                    data-animation-delay="200"
+                  >
+                    Slide Up
+                  </div>
+                  <div
+                    class="motion-scroll-card"
+                    data-animation="zoomIn"
+                    data-animation-delay="300"
+                  >
+                    Zoom In
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <p>Component Lab is the exhaustive validation surface for Syntax.</p>
+        <p>
+          <a href="../demo/">Overview</a> ·
+          <a href="https://github.com/stokewell/syntax">Repository</a>
+        </p>
+      </div>
+    </footer>
+
+    <div class="fixed-controls" aria-label="Display preferences">
+      <button
+        id="font-toggle"
+        class="font-toggle-btn"
+        type="button"
+        aria-haspopup="dialog"
+        aria-controls="font-selector-dialog"
+        aria-label="Choose typography"
+      >
+        <span aria-hidden="true">Aa</span>
+      </button>
+      <button
+        id="theme-toggle"
+        class="theme-toggle-btn"
+        type="button"
+        aria-label="Theme preference: system"
+      >
+        <svg id="theme-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path
+            d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-12.72-1.42 1.42M7.06 16.94l-1.42 1.42"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          />
+          <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2" />
+        </svg>
+      </button>
+    </div>
+
+    <div
+      class="font-selector-modal"
+      id="font-selector-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="font-selector-title"
+      hidden
+    >
+      <div class="font-selector-panel">
+        <div class="font-selector-header">
+          <h2 id="font-selector-title">Choose a font pairing</h2>
+          <button
+            id="font-selector-close"
+            class="font-selector-close"
+            type="button"
+            aria-label="Close typography chooser"
+          >
+            ×
+          </button>
+        </div>
+        <div
+          id="font-options"
+          class="font-options-grid"
+          role="radiogroup"
+          aria-label="Font pairings"
+        ></div>
+      </div>
+    </div>
+
+    <div
+      id="lab-modal"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="lab-modal-title"
+      hidden
+    >
+      <div class="modal-content">
+        <button class="modal-close" type="button" data-modal-close aria-label="Close dialog">
+          ×
+        </button>
+        <h2 id="lab-modal-title">Accessible modal dialog</h2>
+        <p>
+          Close with the buttons, Escape, or the backdrop. Focus returns to the button that opened
+          the dialog.
+        </p>
+        <div class="modal-actions">
+          <button class="btn-secondary" type="button" data-modal-close>Cancel</button>
+          <button class="btn" type="button" data-modal-close>Confirm</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/config/font-pairs.js" defer></script>
+    <script src="../js/utilities/theme-toggle.js" defer></script>
+    <script src="../js/utilities/font-switcher.js" defer></script>
+    <script src="../js/components/navigation.js" defer></script>
+    <script src="../js/components/modal.js" defer></script>
+    <script src="../js/components/web-components.js" defer></script>
+    <script src="../js/utilities/micro-animations.js" defer></script>
+    <script src="../js/main.js" defer></script>
+    <script src="./lab.js" defer></script>
+  </body>
+</html>

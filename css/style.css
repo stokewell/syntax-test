@@ -1,0 +1,66 @@
+/* Syntax source entrypoint. Run npm run build for a production bundle. */
+@import url('tokens.css');
+@import url('reset.css');
+@import url('base.css');
+@import url('layouts.css');
+@import url('components/a11y.css');
+@import url('components/layout.css');
+@import url('components/grid.css');
+@import url('components/modern-header.css');
+@import url('components/typography.css');
+@import url('components/hero.css');
+@import url('components/sections.css');
+@import url('components/features.css');
+@import url('components/feature-card.css');
+@import url('components/buttons.css');
+@import url('components/cards.css');
+@import url('components/alerts.css');
+@import url('components/forms.css');
+@import url('components/media.css');
+@import url('components/modal.css');
+@import url('components/controls.css');
+@import url('components/accordion.css');
+@import url('components/tables.css');
+@import url('components/utilities.css');
+@import url('components/developer.css');
+@import url('themes.css');
+
+@media print {
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  a {
+    color: #000 !important;
+    text-decoration: underline;
+  }
+
+  .container {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  .fixed-controls,
+  .mobile-nav,
+  .modal,
+  .font-selector-modal,
+  button:not(.print-button),
+  .no-print {
+    display: none !important;
+  }
+
+  img {
+    max-width: 100% !important;
+    break-inside: avoid;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    break-after: avoid;
+  }
+}

@@ -1,0 +1,61 @@
+/* ============================================
+   Table Styling
+   ============================================ */
+
+/* Wrapper to make table horizontally scrollable on small screens */
+.table-responsive {
+  overflow-x: auto;
+}
+
+/* Base table styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: var(--space-3);
+}
+
+th, td {
+  padding: var(--space-2);
+  text-align: left;
+  border-bottom: 1px solid var(--color-subtle);
+}
+
+/* Enhanced table header styling */
+th {
+  font-weight: 600;
+  background-color: rgba(var(--color-primary-rgb), 0.1);
+  border-bottom: 2px solid rgba(var(--color-primary-rgb), 0.3);
+}
+
+/* Make headers sticky for large tables */
+thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* Striped row styling for better readability */
+.table-striped tbody tr:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.table-striped tbody tr:nth-child(odd) {
+  background-color: transparent;
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] th {
+  background-color: rgba(var(--color-primary-rgb), 0.2);
+  border-bottom-color: rgba(var(--color-primary-rgb), 0.4);
+}
+
+[data-theme="dark"] .table-striped tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .table-striped tbody tr:nth-child(odd) {
+  background-color: transparent;
+}
+
+

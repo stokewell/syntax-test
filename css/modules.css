@@ -1,0 +1,746 @@
+/* Fully commented CSS framework styles including layout, grid, flex, spacing, buttons, and more. */
+/* This is a partial file — continue adding remaining component styles as needed. */
+
+/* ============================================
+   Layout Utilities and Components
+   ============================================ */
+
+/* Container system for centering content within a max-width */
+.container {
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: var(--space-3);
+  width: 100%;
+}
+
+/* A narrower version of the container for smaller blocks or content areas */
+.container-narrow {
+  max-width: 960px;
+}
+
+/* A full-width container that spans the viewport */
+.container-fluid {
+  max-width: 100%;
+}
+
+/* Grid system for creating multi-column layouts using CSS Grid */
+.grid {
+  display: grid;
+  gap: var(--gutter);
+}
+
+/* Predefined column grids */
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+/* Responsive auto-fitting grid with a minimum item width */
+.grid-auto { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+
+/* Stack all grid columns on smaller screens */
+@media (max-width: 768px) {
+  .grid-2, .grid-3, .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Flexbox utilities for flexible layout management */
+.flex { display: flex; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-column { flex-direction: column; }
+
+/* Flex alignment and justification helpers */
+.justify-start { justify-content: flex-start; }
+.justify-end { justify-content: flex-end; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-around { justify-content: space-around; }
+
+.items-start { align-items: flex-start; }
+.items-end { align-items: flex-end; }
+.items-center { align-items: center; }
+.items-stretch { align-items: stretch; }
+
+/* Gap utility classes for controlling spacing between flex/grid children */
+.gap-1 { gap: var(--space-1); }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+
+/* Margin utility classes */
+.m-1 { margin: var(--space-1); }
+.m-2 { margin: var(--space-2); }
+.m-3 { margin: var(--space-3); }
+.m-4 { margin: var(--space-4); }
+
+/* Margin X-axis utility (left and right) */
+.mx-1 { margin-left: var(--space-1); margin-right: var(--space-1); }
+.mx-2 { margin-left: var(--space-2); margin-right: var(--space-2); }
+.mx-3 { margin-left: var(--space-3); margin-right: var(--space-3); }
+.mx-4 { margin-left: var(--space-4); margin-right: var(--space-4); }
+
+/* Margin Y-axis utility (top and bottom) */
+.my-1 { margin-top: var(--space-1); margin-bottom: var(--space-1); }
+.my-2 { margin-top: var(--space-2); margin-bottom: var(--space-2); }
+.my-3 { margin-top: var(--space-3); margin-bottom: var(--space-3); }
+.my-4 { margin-top: var(--space-4); margin-bottom: var(--space-4); }
+
+/* Padding utility classes */
+.p-1 { padding: var(--space-1); }
+.p-2 { padding: var(--space-2); }
+.p-3 { padding: var(--space-3); }
+.p-4 { padding: var(--space-4); }
+
+/* Padding X-axis utility (left and right) */
+.px-1 { padding-left: var(--space-1); padding-right: var(--space-1); }
+.px-2 { padding-left: var(--space-2); padding-right: var(--space-2); }
+.px-3 { padding-left: var(--space-3); padding-right: var(--space-3); }
+.px-4 { padding-left: var(--space-4); padding-right: var(--space-4); }
+
+/* Padding Y-axis utility (top and bottom) */
+.py-1 { padding-top: var(--space-1); padding-bottom: var(--space-1); }
+.py-2 { padding-top: var(--space-2); padding-bottom: var(--space-2); }
+.py-3 { padding-top: var(--space-3); padding-bottom: var(--space-3); }
+.py-4 { padding-top: var(--space-4); padding-bottom: var(--space-4); }
+
+
+/* ============================================
+   Button Styles - Modern Redesign
+   ============================================ */
+
+/* Common button properties */
+.btn,
+.btn-secondary,
+.btn-outline,
+.btn-contrast {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1.25rem;
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 6px;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  gap: 0.5rem;
+}
+
+/* Add nice focus state for all buttons */
+.btn:focus,
+.btn-secondary:focus, 
+.btn-outline:focus,
+.btn-contrast:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.25);
+}
+
+/* Primary Button - main call-to-action */
+.btn {
+  background-color: var(--color-primary);
+  color: white;
+  box-shadow: 0 1px 2px rgba(var(--color-primary-rgb), 0.15), 
+              0 -1px 0px rgba(0, 0, 0, 0.08) inset;
+}
+
+.btn:hover {
+  background-color: rgba(var(--color-primary-rgb), 0.9);
+  box-shadow: 0 3px 8px rgba(var(--color-primary-rgb), 0.25);
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 0px 1px rgba(var(--color-primary-rgb), 0.2);
+}
+
+/* Secondary Button - alternate action */
+.btn-secondary {
+  background-color: rgba(var(--color-primary-rgb), 0.1);
+  color: var(--color-primary);
+  box-shadow: 0 1px 2px rgba(var(--color-primary-rgb), 0.08);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(var(--color-primary-rgb), 0.15);
+  box-shadow: 0 3px 8px rgba(var(--color-primary-rgb), 0.15);
+  transform: translateY(-1px);
+}
+
+.btn-secondary:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+/* Outline Button - subtle action */
+.btn-outline {
+  background-color: transparent;
+  box-shadow: inset 0 0 0 1.5px var(--color-primary);
+  color: var(--color-primary);
+}
+
+.btn-outline:hover {
+  background-color: rgba(var(--color-primary-rgb), 0.04);
+  box-shadow: inset 0 0 0 1.5px var(--color-primary), 
+              0 3px 8px rgba(var(--color-primary-rgb), 0.12);
+  transform: translateY(-1px);
+}
+
+.btn-outline:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 0 0 1.5px var(--color-primary);
+}
+
+/* Contrast Button - for use on colored backgrounds */
+.btn-contrast {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1),
+              0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.btn-contrast:hover {
+  background-color: var(--color-bg);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15),
+              0 0 0 1px rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+}
+
+.btn-contrast:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
+              0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+/* Button sizes */
+.btn-sm {
+  padding: 0.35rem 0.8rem;
+  font-size: 0.85rem;
+  border-radius: 4px;
+}
+
+.btn-lg {
+  padding: 0.8rem 1.8rem;
+  font-size: 1.1rem;
+  border-radius: 8px;
+}
+
+/* Icon buttons */
+.btn-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon.btn-sm {
+  width: 2rem;
+  height: 2rem;
+}
+
+.btn-icon.btn-lg {
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .btn-contrast {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2),
+              0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .btn-contrast:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3),
+              0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+
+/* ============================================
+   Card Component
+   ============================================ */
+
+.card {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-subtle);
+  border-radius: 4px;
+  padding: var(--space-3);
+  transition: box-shadow var(--transition-fast) var(--ease-in-out),
+              transform var(--transition-fast) var(--ease-in-out);
+}
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+.card-title {
+  margin-top: 0;
+  margin-bottom: var(--space-2);
+}
+.card-footer {
+  border-top: 1px solid var(--color-subtle);
+  margin-top: var(--space-3);
+  padding-top: var(--space-2);
+}
+
+
+/* ============================================
+   Alerts (Success, Warning, Error)
+   ============================================ */
+
+.alert {
+  padding: var(--space-2) var(--space-3);
+  border-radius: 4px;
+  margin-bottom: var(--space-3);
+}
+.alert-success {
+  background-color: rgba(50, 168, 82, 0.1);
+  color: var(--color-success);
+  border-left: 4px solid var(--color-success);
+}
+.alert-warning {
+  background-color: rgba(242, 201, 76, 0.1);
+  color: var(--color-warning);
+  border-left: 4px solid var(--color-warning);
+}
+.alert-error {
+  background-color: rgba(230, 57, 70, 0.1);
+  color: var(--color-error);
+  border-left: 4px solid var(--color-error);
+}
+
+
+/* ============================================
+   Form Controls
+   ============================================ */
+
+.form-group {
+  margin-bottom: var(--space-3);
+}
+.form-label {
+  display: block;
+  margin-bottom: var(--space-1);
+  font-weight: 500;
+}
+.form-control {
+  display: block;
+  width: 100%;
+  padding: var(--space-1) var(--space-2);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-subtle);
+  border-radius: 4px;
+  transition: border-color var(--transition-fast) var(--ease-in-out);
+}
+.form-control:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+.form-control.is-invalid {
+  border-color: var(--color-error);
+}
+.invalid-feedback {
+  display: block;
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+  margin-top: var(--space-1);
+}
+
+/* Font Switcher Styles */
+#font-switcher {
+  min-width: 220px;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-subtle);
+  border-radius: 4px;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: border-color var(--transition-fast) var(--ease-in-out);
+}
+
+#font-switcher:hover,
+#font-switcher:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+#font-switcher option {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  padding: 0.3rem 0;
+}
+
+#font-switcher optgroup {
+  font-weight: 700;
+  color: var(--color-primary);
+  font-style: normal;
+  margin-top: 0.5rem;
+}
+
+/* Checkboxes and Radio Buttons */
+.form-check {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--space-2);
+}
+.form-check-input {
+  margin-right: var(--space-1);
+}
+.form-check-label {
+  margin-bottom: 0;
+}
+
+
+/* ============================================
+   Media Helpers
+   ============================================ */
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+.media-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.aspect-ratio {
+  position: relative;
+  overflow: hidden;
+}
+.aspect-ratio::before {
+  content: "";
+  display: block;
+  padding-bottom: 56.25%; /* 16:9 ratio */
+}
+.aspect-ratio-1::before { padding-bottom: 100%; } /* 1:1 */
+.aspect-ratio-4-3::before { padding-bottom: 75%; } /* 4:3 */
+.aspect-ratio > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* ============================================
+   Modal
+   ============================================ */
+
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: var(--z-modal);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-fast) var(--ease-in-out),
+              visibility var(--transition-fast) var(--ease-in-out);
+}
+.modal.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+.modal-content {
+  background-color: var(--color-bg);
+  border-radius: 4px;
+  padding: var(--space-3);
+  max-width: 500px;
+  width: 100%;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  transform: translateY(20px);
+  transition: transform var(--transition-fast) var(--ease-in-out);
+}
+.modal.is-active .modal-content {
+  transform: translateY(0);
+}
+.modal-close {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--color-text);
+  opacity: 0.7;
+  transition: opacity var(--transition-fast) var(--ease-in-out);
+}
+.modal-close:hover, .modal-close:focus {
+  opacity: 1;
+}
+
+
+/* ============================================
+   Accordion Component
+   ============================================ */
+
+/* <details> tag styled to look like an expandable section */
+details {
+  border: 1px solid var(--color-subtle);
+  border-radius: 4px;
+  margin-bottom: var(--space-2);
+}
+
+/* <summary> tag as the clickable heading of the accordion */
+summary {
+  padding: var(--space-2) var(--space-3);
+  cursor: pointer;
+  font-weight: 500;
+  position: relative;
+}
+
+/* When the details element is open, style the summary's bottom border */
+details[open] summary {
+  border-bottom: 1px solid var(--color-subtle);
+}
+
+/* Inner content of the accordion */
+details > div {
+  padding: var(--space-3);
+}
+
+
+/* ============================================
+   Table Styling
+   ============================================ */
+
+/* Wrapper to make table horizontally scrollable on small screens */
+.table-responsive {
+  overflow-x: auto;
+}
+
+/* Base table styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: var(--space-3);
+}
+
+th, td {
+  padding: var(--space-2);
+  text-align: left;
+  border-bottom: 1px solid var(--color-subtle);
+}
+
+/* Enhanced table header styling */
+th {
+  font-weight: 600;
+  background-color: rgba(var(--color-primary-rgb), 0.1);
+  border-bottom: 2px solid rgba(var(--color-primary-rgb), 0.3);
+}
+
+/* Make headers sticky for large tables */
+thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* Striped row styling for better readability */
+.table-striped tbody tr:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.table-striped tbody tr:nth-child(odd) {
+  background-color: transparent;
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] th {
+  background-color: rgba(var(--color-primary-rgb), 0.2);
+  border-bottom-color: rgba(var(--color-primary-rgb), 0.4);
+}
+
+[data-theme="dark"] .table-striped tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .table-striped tbody tr:nth-child(odd) {
+  background-color: transparent;
+}
+
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+
+/* Text alignment helpers */
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-left { text-align: left; }
+
+/* Font size utilities */
+.text-sm { font-size: var(--font-size-sm); }
+.text-md { font-size: var(--font-size-md); }
+.text-lg { font-size: var(--font-size-lg); }
+.text-xl { font-size: var(--font-size-xl); }
+
+/* Font weight utilities */
+.font-light { font-weight: 300; }
+.font-normal { font-weight: 400; }
+.font-medium { font-weight: 500; }
+.font-bold { font-weight: 700; }
+
+/* Hide elements completely */
+.hidden { display: none !important; }
+
+/* Visually hide elements but keep them accessible for screen readers */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Clearfix utility to contain floats */
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+/* ============================================
+   Developer Tools
+   ============================================ */
+
+/* Optional baseline grid overlay for development alignment checks */
+body.show-grid::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+  background-size: 100% var(--baseline);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ============================================
+   Font pairing options Styling 
+   ============================================ */
+
+#font-pairing-wrapper {
+  max-width: 300px;
+  margin-left: auto;
+}
+
+@media (max-width: 600px) {
+  #font-pairing-wrapper {
+    max-width: 100%;
+    margin-left: 0;
+  }
+}
+
+/* Ensure header layout does not shift */
+header.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+/* Font switcher toolbar floating to top-right on desktop */
+.toolbar {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  z-index: 10; /* Ensure it stays above animated content */
+}
+
+/* Responsive dropdown panel */
+#font-pairing-preview {
+  background: var(--color-bg);
+  border: 1px solid var(--color-subtle);
+  border-radius: 4px;
+  padding: 0.75rem;
+  min-width: 250px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  text-align: left;
+}
+
+#font-pairing-preview label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+#font-pairing-select {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--color-subtle);
+}
+
+/* Button style match */
+.btn-outline-sm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.85rem;
+  background-color: transparent;
+  box-shadow: inset 0 0 0 1.5px var(--color-primary);
+  color: var(--color-primary);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.btn-outline-sm:hover, .btn-outline-sm:focus {
+  background-color: rgba(var(--color-primary-rgb), 0.04);
+  box-shadow: inset 0 0 0 1.5px var(--color-primary), 
+              0 2px 4px rgba(var(--color-primary-rgb), 0.12);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.btn-outline-sm:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 0 0 1.5px var(--color-primary);
+}
+
+/* Mobile stacking behavior */
+@media (max-width: 768px) {
+  .toolbar {
+    position: static;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  #font-pairing-preview {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}

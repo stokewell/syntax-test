@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Web Components - FINAL VERSION</title>
+  
+  <!-- Base styles - force latest version -->
+  <link rel="stylesheet" href="../css/style.css?v=20230428">
+  <link rel="stylesheet" href="../css/layouts.css?v=20230428">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link id="dynamic-fonts-live" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap">
+  
+  <style>
+    /* Font selector styles */
+    .font-selector-modal {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: var(--color-bg);
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+      z-index: var(--z-modal);
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    
+    .font-selector-modal.open {
+      display: block;
+      transform: translateY(0);
+      animation: slideUp 0.3s ease forwards;
+    }
+    
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+    
+    .font-selector-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      border-bottom: 1px solid var(--color-subtle);
+    }
+    
+    .font-selector-header h3 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+    
+    .font-selector-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--color-text);
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+    
+    .font-selector-close:hover {
+      background-color: var(--color-subtle);
+    }
+    
+    .font-selector-content {
+      padding: 12px 16px 16px;
+    }
+    
+    .font-options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+    }
+    
+    .font-option {
+      padding: 10px;
+      margin-bottom: 6px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      border: 2px solid transparent;
+    }
+    
+    .font-option:hover {
+      background-color: rgba(var(--color-primary-rgb), 0.05);
+      transform: translateY(-2px);
+    }
+    
+    .font-option.selected {
+      border-color: var(--color-primary);
+      background-color: rgba(var(--color-primary-rgb), 0.1);
+    }
+    
+    .font-pair-heading {
+      font-size: 1.5rem;
+      margin-bottom: 4px;
+      line-height: 1.2;
+    }
+    
+    .font-pair-body {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      line-height: 1.3;
+    }
+    
+    @media (min-width: 768px) {
+      .font-selector-modal {
+        top: 50%;
+        left: 50%;
+        right: auto;
+        bottom: auto;
+        transform: translate(-50%, -50%) scale(0.95);
+        max-width: 650px;
+        border-radius: 16px;
+        max-height: 80vh;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      }
+      
+      .font-selector-modal.open {
+        transform: translate(-50%, -50%) scale(1);
+        animation: modalFadeIn 0.3s ease forwards;
+      }
+      
+      @keyframes modalFadeIn {
+        from { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+        to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      }
+      
+      .font-option {
+        padding: 14px;
+      }
+      
+      .font-options-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 14px;
+      }
+    }
+    
+    /* Demo-specific styles */
+    .component-demo {
+      margin-bottom: var(--space-6);
+      border: 1px solid var(--color-subtle);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    
+    .component-demo-header {
+      background-color: var(--color-subtle);
+      padding: var(--space-3) var(--space-4);
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .component-demo-body {
+      padding: var(--space-4);
+      min-height: 100px;
+    }
+    
+    .demo-section-heading {
+      font-size: 1.3rem;
+      margin-bottom: var(--space-2);
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+    
+    .demo-description {
+      margin-bottom: var(--space-4);
+      color: var(--color-text-secondary, var(--color-text));
+      max-width: 650px;
+    }
+    
+    /* Toggle switch demo styles */
+    .toggle-demo-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+      margin-bottom: var(--space-5);
+    }
+    
+    .toggle-examples {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      padding: var(--space-3);
+      background-color: rgba(var(--color-primary-rgb), 0.03);
+      border-radius: 8px;
+    }
+    
+    .toggle-example-item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    
+    .toggle-interactive {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      padding: var(--space-3);
+      background-color: rgba(var(--color-primary-rgb), 0.07);
+      border-radius: 8px;
+      border-left: 3px solid var(--color-primary);
+    }
+    
+    .toggle-label {
+      font-weight: 600;
+      margin-bottom: var(--space-1);
+      font-size: 0.95rem;
+      color: var(--color-text);
+    }
+    
+    .toggle-output {
+      padding: var(--space-2);
+      background-color: rgba(var(--color-text-rgb), 0.05);
+      border-radius: 4px;
+      margin-bottom: var(--space-2);
+      font-family: monospace;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      text-align: center;
+    }
+    
+    .toggle-on {
+      background-color: rgba(var(--color-success-rgb, 0, 200, 0), 0.15);
+      color: var(--color-success, green);
+      border-left: 3px solid var(--color-success, green);
+    }
+    
+    .toggle-off {
+      background-color: rgba(var(--color-error-rgb, 200, 0, 0), 0.1);
+      color: var(--color-error, #d32f2f);
+      border-left: 3px solid var(--color-error, #d32f2f);
+    }
+    
+    .toggle-help-text {
+      font-size: 0.85rem;
+      opacity: 0.7;
+      margin-top: var(--space-1);
+      font-style: italic;
+    }
+    
+    .code-block-heading {
+      margin-top: var(--space-4);
+      margin-bottom: var(--space-2);
+      font-weight: 600;
+      color: var(--color-text);
+    }
+    
+    .code-block {
+      background-color: rgba(var(--color-text-rgb), 0.05);
+      border-radius: 8px;
+      padding: var(--space-3);
+      overflow-x: auto;
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 0.9em;
+      color: var(--color-text);
+      border: 1px solid var(--color-subtle);
+      line-height: 1.5;
+    }
+    
+    .code-block pre {
+      margin: 0;
+    }
+    
+    .code-block code {
+      display: block;
+      white-space: pre;
+    }
+    
+    @media (min-width: 768px) {
+      .toggle-demo-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    .layout-demo {
+      border: 1px solid var(--color-subtle);
+      padding: var(--space-2);
+      margin-bottom: var(--space-2);
+      text-align: center;
+      background-color: rgba(var(--color-primary-rgb), 0.1);
+    }
+    
+    .sidebar-demo {
+      background-color: rgba(var(--color-primary-rgb), 0.2);
+      min-height: 200px;
+      padding: var(--space-2);
+    }
+    
+    .main-demo {
+      min-height: 400px;
+    }
+    
+    .grid-item-demo {
+      background-color: rgba(var(--color-primary-rgb), 0.1);
+      padding: var(--space-2);
+      border-radius: 4px;
+      height: 100%;
+    }
+    
+    /* Custom tabs implementation - mobile first */
+    .custom-tabs {
+      margin-bottom: var(--space-6);
+    }
+    
+    .custom-tabs-nav {
+      display: flex;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--color-subtle);
+      margin-bottom: var(--space-4);
+      justify-content: center;
+      gap: var(--space-1);
+    }
+    
+    .custom-tab-button {
+      padding: var(--space-2) var(--space-2);
+      cursor: pointer;
+      font-weight: 500;
+      border: none;
+      background: none;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s ease;
+      color: var(--color-text);
+      opacity: 0.7;
+      font-family: inherit;
+      font-size: 0.9em;
+      white-space: nowrap;
+      flex: 1;
+      text-align: center;
+      min-width: max-content;
+    }
+    
+    .custom-tab-button.active {
+      border-bottom-color: var(--color-primary);
+      opacity: 1;
+    }
+    
+    .custom-tab-button:hover {
+      opacity: 1;
+    }
+    
+    .custom-tab-content {
+      display: none;
+    }
+    
+    .custom-tab-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease forwards;
+    }
+    
+    /* Responsive styles for different screen sizes - following mobile-first approach */
+    @media (min-width: 576px) {
+      .custom-tab-button {
+        padding: var(--space-2) var(--space-3);
+        font-size: 1em;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .custom-tabs-nav {
+        flex-wrap: nowrap;
+        gap: var(--space-2);
+      }
+      
+      .custom-tab-button {
+        padding: var(--space-2) var(--space-4);
+        font-size: 1.1em;
+        flex: 0 1 auto;
+      }
+    }
+    
+    /* Demo-wrapper from animations.html */
+    .demo-wrapper {
+      border: 1px solid var(--color-subtle);
+      border-radius: 8px;
+      padding: var(--space-3);
+      margin-bottom: var(--space-3);
+    }
+    
+    .demo-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-top: var(--space-2);
+    }
+    
+    .demo-box {
+      width: 100px;
+      height: 100px;
+      background-color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      margin: var(--space-3) auto;
+      border-radius: 4px;
+    }
+    
+    .sequence-demo {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-2);
+    }
+    
+    .sequence-item {
+      width: 50px;
+      height: 50px;
+      background-color: var(--color-primary);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      opacity: 0;
+    }
+    
+    .demo-text {
+      font-size: var(--font-size-lg);
+      text-align: center;
+      margin: var(--space-4) 0;
+      padding: var(--space-4) 0;
+      display: block;
+      min-height: 80px;
+    }
+    
+    /* Component section headers styling */
+    .component-header {
+      font-family: var(--font-heading);
+      font-size: var(--font-size-xl);
+      letter-spacing: -0.02em;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: var(--space-2);
+    }
+    
+    .component-header .subtle {
+      font-weight: 300;
+      opacity: 0.7;
+    }
+    
+    /* Layout variants header styling */
+    .layout-header {
+      font-family: var(--font-heading);
+      font-size: var(--font-size-xl);
+      letter-spacing: -0.02em;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: var(--space-2);
+    }
+    
+    .layout-header .subtle {
+      font-weight: 300;
+      opacity: 0.7;
+    }
+    
+    /* Typography header styling */
+    .typography-header {
+      font-family: var(--font-heading);
+      font-size: var(--font-size-xl);
+      letter-spacing: -0.02em;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: var(--space-2);
+    }
+    
+    .typography-header .subtle {
+      font-weight: 300;
+      opacity: 0.7;
+    }
+    
+    /* Typography demo styles */
+    .font-pairing-preview {
+      padding: var(--space-3);
+      border: 1px solid var(--color-subtle);
+      border-radius: 6px;
+      background-color: rgba(var(--color-primary-rgb), 0.03);
+    }
+    
+    /* Responsive grids for typography demos */
+    .font-sample-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+    
+    .multilingual-demo {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+    
+    /* Special handling for long headlines */
+    .long-headline {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      hyphens: auto;
+      font-size: 1.6rem;
+    }
+    
+    /* Typography stress tests styling */
+    .typography-stress-tests {
+      width: 100%;
+    }
+    
+    .typography-stress-tests > summary {
+      cursor: pointer;
+      user-select: none;
+      list-style: none;
+    }
+    
+    .typography-stress-tests > summary::-webkit-details-marker {
+      display: none;
+    }
+    
+    .typography-stress-tests > summary::after {
+      content: '+';
+      float: right;
+      font-size: 1.2em;
+      font-weight: bold;
+      transition: transform 0.2s ease;
+    }
+    
+    .typography-stress-tests[open] > summary::after {
+      transform: rotate(45deg);
+    }
+    
+    @media (min-width: 768px) {
+      .font-sample-grid,
+      .multilingual-demo {
+        grid-template-columns: 1fr 1fr;
+      }
+      
+      .long-headline {
+        font-size: inherit;
+      }
+    }
+    
+    /* Micro-animations logo styling */
+    .micro-animations-logo {
+      font-family: var(--font-heading);
+      font-size: var(--font-size-xl);
+      letter-spacing: -0.02em;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: var(--space-2);
+    }
+    
+    .micro-animations-logo .subtle {
+      font-weight: 300;
+      opacity: 0.7;
+    }
+    
+    /* Animation for tab transitions */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Dark mode adjustments */
+    [data-theme="dark"] .code-block {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    /* Fixed controls for font and theme toggles */
+    .fixed-controls {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 1000;
+    }
+    
+    .font-toggle-btn,
+    .theme-toggle-btn {
+      cursor: pointer;
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-subtle);
+      color: var(--color-text);
+      padding: 8px;
+      border-radius: 50%;
+      transition: all 0.25s var(--ease-in-out);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+    
+    /* Adjust based on theme */
+    [data-theme="light"] .font-toggle-btn,
+    [data-theme="light"] .theme-toggle-btn {
+      background-color: rgba(255, 255, 255, 0.85);
+    }
+    
+    [data-theme="dark"] .font-toggle-btn,
+    [data-theme="dark"] .theme-toggle-btn {
+      background-color: rgba(30, 30, 30, 0.85);
+    }
+    
+    .font-toggle-btn:hover,
+    .theme-toggle-btn:hover {
+      background-color: rgba(var(--color-primary-rgb), 0.1);
+      transform: scale(1.1);
+    }
+    
+    #font-icon, #theme-icon {
+      transition: transform 0.3s var(--ease-in-out);
+    }
+    
+    .font-toggle-btn:hover #font-icon {
+      transform: scale(1.2) rotate(-5deg);
+    }
+    
+    .theme-toggle-btn:hover #theme-icon {
+      transform: scale(1.2) rotate(15deg);
+    }
+    
+    .theme-icon-animate {
+      animation: iconPulse 0.5s ease forwards;
+    }
+    
+    /* Add a nice hover effect for the fixed buttons */
+    .fixed-controls .font-toggle-btn:hover,
+    .fixed-controls .theme-toggle-btn:hover {
+      transform: translateY(-3px) scale(1.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    @keyframes iconPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    
+    /* Apply font-zoom animation to text elements when fonts change */
+    .font-zoom {
+      animation: fontZoom 0.8s var(--ease-in-out);
+    }
+    
+    @keyframes fontZoom {
+      0% {
+        opacity: 0.5;
+        transform: scale(0.97);
+        letter-spacing: -0.02em;
+      }
+      40% {
+        opacity: 0.8;
+        transform: scale(1.01);
+        letter-spacing: 0.01em;
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+        letter-spacing: 0;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+  <header class="container py-4">
+    <nav class="toolbar" aria-label="Font Tools">
+      <div class="font-switcher-controls">
+        <button id="toggle-font-preview" class="btn btn-outline-sm">Customize Fonts</button>
+        <div id="font-pairing-preview">
+          <label for="font-pairing-select">Font Pairing</label>
+          <select id="font-pairing-select">
+            <option value="EB Garamond|Plus Jakarta Sans" selected>EB Garamond + Plus Jakarta Sans</option>
+            <option value="DM Serif Display|Inter">DM Serif Display + Inter</option>
+            <option value="Merriweather|Work Sans">Merriweather + Work Sans</option>
+            <option value="Cormorant Garamond|Raleway">Cormorant Garamond + Raleway</option>
+            <option value="Lora|Source Sans Pro">Lora + Source Sans Pro</option>
+            <option value="Vollkorn|Noto Sans">Vollkorn + Noto Sans</option>
+            <option value="Outfit|Inter">Outfit + Inter (Modern Futuristic)</option>
+            <option value="Montserrat|Roboto">Montserrat + Roboto (Modern Sans)</option>
+          </select>
+        </div>
+      </div>
+      <a href="index.html" class="btn-outline-sm">← Back to Main Demo</a>
+      <a href="animations.html" class="btn-outline-sm">Animation Demo</a>
+    </nav>
+    
+    <h1 class="site-title" style="font-size: 2.5rem; font-weight: 700; text-align: center; margin-top: 1rem; margin-bottom: 2rem; line-height: 1.2; letter-spacing: -0.02em;">
+      <span style="background: linear-gradient(90deg, var(--color-primary), var(--color-success)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-fill-color: transparent;">
+        Components & Layouts
+      </span>
+      <span style="display: block; font-size: 1.2rem; font-weight: 400; color: var(--color-text); margin-top: 0.25em;">
+        Typography-First Components Library
+      </span>
+    </h1>
+  </header>
+
+  <main class="container">
+    <!-- Custom tabs implementation to avoid ShadowDOM issues -->
+    <div class="custom-tabs">
+      <div class="custom-tabs-nav">
+        <button class="custom-tab-button active" data-tab="web-components">Web Components</button>
+        <button class="custom-tab-button" data-tab="layout-variants">Layout Variants</button>
+        <button class="custom-tab-button" data-tab="typography">Typography</button>
+        <button class="custom-tab-button" data-tab="animations">Animations</button>
+      </div>
+      
+      <!-- Web Components Tab -->
+      <div id="web-components" class="custom-tab-content active">
+        <h2 class="component-header">web<span class="subtle">components</span></h2>
+        <p class="text-center">Components built with the Web Components API alongside standard HTML/CSS components.</p>
+        
+        <div class="component-demo">
+          <div class="component-demo-header">
+            <span>Responsive Image Component</span>
+          </div>
+          <div class="component-demo-body">
+            <responsive-image 
+              src="../demo-images/geese.jpg" 
+              alt="Geese in flight" 
+              aspect-ratio="16:9" 
+              lazy>
+              <span slot="caption">Geese flying in formation captured at sunset</span>
+            </responsive-image>
+            
+            <div class="code-block">
+              &lt;responsive-image 
+                src="../demo-images/geese.jpg" 
+                alt="Geese in flight" 
+                aspect-ratio="16:9" 
+                lazy&gt;
+                &lt;span slot="caption"&gt;Geese flying in formation captured at sunset&lt;/span&gt;
+              &lt;/responsive-image&gt;
+            </div>
+          </div>
+        </div>
+        
+        <div class="component-demo">
+          <div class="component-demo-header">
+            <span>Card Component</span>
+          </div>
+          <div class="component-demo-body">
+            <div class="grid-2">
+              <custom-card 
+                title="Basic Card"
+                shadow-level="1">
+                <p>This is a simple card component with title and content.</p>
+                <div slot="footer">
+                  <button class="btn-outline-sm">Learn More</button>
+                </div>
+              </custom-card>
+              
+              <custom-card 
+                title="Card with Image"
+                image="../demo-images/dolphins.jpg"
+                shadow-level="2"
+                clickable>
+                <p>This card has an image and is clickable. It also uses shadow level 2.</p>
+                <div slot="footer">
+                  <button class="btn-outline-sm">View Details</button>
+                </div>
+              </custom-card>
+            </div>
+            
+            <div class="code-block">
+              &lt;custom-card 
+                title="Card Title"
+                image="../demo-images/dolphins.jpg"
+                shadow-level="1"
+                clickable&gt;
+                &lt;p&gt;Card content goes here.&lt;/p&gt;
+                &lt;div slot="footer"&gt;
+                  &lt;button class="btn-outline-sm"&gt;Button&lt;/button&gt;
+                &lt;/div&gt;
+              &lt;/custom-card&gt;
+            </div>
+          </div>
+        </div>
+        
+        <div class="component-demo">
+          <div class="component-demo-header">
+            <span>Toggle Switch Component</span>
+          </div>
+          <div class="component-demo-body">
+            <h3 class="demo-section-heading">Toggle Switch Variants</h3>
+            <p class="demo-description">Toggle switches provide an intuitive way to turn options on or off.</p>
+            
+            <div class="toggle-demo-container">
+              <div class="toggle-examples">
+                <div class="toggle-example-item">
+                  <div class="toggle-label">Default State</div>
+                  <toggle-switch label="Default Toggle"></toggle-switch>
+                </div>
+                
+                <div class="toggle-example-item">
+                  <div class="toggle-label">Pre-checked</div>
+                  <toggle-switch label="Pre-checked Toggle" checked></toggle-switch>
+                </div>
+                
+                <div class="toggle-example-item">
+                  <div class="toggle-label">Disabled</div>
+                  <toggle-switch label="Disabled Toggle" disabled></toggle-switch>
+                </div>
+              </div>
+              
+              <div class="toggle-interactive">
+                <div class="toggle-label">Interactive Example</div>
+                <div id="toggle-demo-output" class="toggle-output">Toggle state: OFF</div>
+                <toggle-switch 
+                  id="demo-toggle" 
+                  label="Try toggling me"
+                  checked>
+                </toggle-switch>
+                <p class="toggle-help-text">Click the toggle to see the state change</p>
+              </div>
+            </div>
+            
+            <h4 class="code-block-heading">Implementation</h4>
+            <div class="code-block">
+              <pre><code>&lt;toggle-switch label="Default Toggle"&gt;&lt;/toggle-switch&gt;
+
+&lt;toggle-switch label="Pre-checked Toggle" checked&gt;&lt;/toggle-switch&gt;
+
+&lt;toggle-switch label="Disabled Toggle" disabled&gt;&lt;/toggle-switch&gt;</code></pre>
+            </div>
+          </div>
+        </div>
+        
+        <div class="component-demo">
+          <div class="component-demo-header">
+            <span>Tabs Component</span>
+          </div>
+          <div class="component-demo-body">
+            <tabs-container>
+              <tab-item label="First Tab">
+                <h3>First Tab Content</h3>
+                <p>This is the content for the first tab. Tabs are fully accessible with keyboard navigation.</p>
+              </tab-item>
+              <tab-item label="Second Tab">
+                <h3>Second Tab Content</h3>
+                <p>Content for the second tab. You can navigate between tabs using the arrow keys.</p>
+              </tab-item>
+              <tab-item label="Third Tab">
+                <h3>Third Tab Content</h3>
+                <p>Here's the third tab content. These tabs are built with the native Web Components API.</p>
+              </tab-item>
+            </tabs-container>
+            
+            <div class="code-block">
+              &lt;tabs-container&gt;
+                &lt;tab-item label="First Tab"&gt;
+                  &lt;h3&gt;First Tab Content&lt;/h3&gt;
+                  &lt;p&gt;Content for the first tab.&lt;/p&gt;
+                &lt;/tab-item&gt;
+                &lt;tab-item label="Second Tab"&gt;
+                  &lt;h3&gt;Second Tab Content&lt;/h3&gt;
+                  &lt;p&gt;Content for the second tab.&lt;/p&gt;
+                &lt;/tab-item&gt;
+              &lt;/tabs-container&gt;
+            </div>
+          </div>
+        </div>
+        
+        <div class="component-demo">
+          <div class="component-demo-header">
+            <span>Standard UI Components</span>
+          </div>
+          <div class="component-demo-body">
+            <h3>Buttons</h3>
+            <div class="flex gap-2 flex-wrap my-3">
+              <button class="btn">Primary Button</button>
+              <button class="btn-secondary">Secondary Button</button>
+              <button class="btn-outline">Outline Button</button>
+              <button class="btn-contrast">Contrast Button</button>
+            </div>
+            
+            <div class="my-4"></div>
+            
+            <h3>Alerts</h3>
+            <div class="my-3">
+              <div class="alert alert-success">
+                <strong>Success!</strong> Your changes have been saved.
+              </div>
+              
+              <div class="alert alert-warning">
+                <strong>Warning!</strong> This action cannot be undone.
+              </div>
+              
+              <div class="alert alert-error">
+                <strong>Error!</strong> Something went wrong. Please try again.
+              </div>
+            </div>
+            
+            <div class="my-4"></div>
+            
+            <h3>Cards</h3>
+            <div class="grid-3 my-3">
+              <div class="card">
+                <h3 class="card-title">Card Title</h3>
+                <p>This is a simple card with some text content. Cards can be used to group related information.</p>
+              </div>
+              
+              <div class="card">
+                <div class="aspect-ratio">
+                  <img src="../demo-images/sandy-bottom.png" alt="Sandy Bottom" class="media-cover">
+                </div>
+                <h3 class="card-title mt-3">Card with Image</h3>
+                <p>This card includes an image with a 16:9 aspect ratio.</p>
+              </div>
+              
+              <div class="card">
+                <h3 class="card-title">Interactive Card</h3>
+                <p>Cards have hover effects built in. Try hovering over this card to see it in action.</p>
+                <div class="card-footer">
+                  <a href="#" class="btn">Learn More</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="my-4"></div>
+            
+            <h3>Accordion Example</h3>
+            <details class="my-3">
+              <summary>What is a typography-first approach?</summary>
+              <div>
+                <p>A typography-first approach prioritizes text readability and hierarchy in design. It starts with establishing a solid typographic foundation before adding other design elements. This approach ensures content is legible, accessible, and properly structured.</p>
+              </div>
+            </details>
+            
+            <details class="my-3">
+              <summary>How do design tokens help with consistency?</summary>
+              <div>
+                <p>Design tokens are named variables that store design decisions like colors, spacing, and typography values. By using tokens instead of hardcoded values, you ensure consistency throughout your design and make it easier to update the design system as a whole.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Layout Variants Tab -->
+      <div id="layout-variants" class="custom-tab-content">
+        <h2 class="layout-header">layout<span class="subtle">variants</span></h2>
+        <p class="text-center">Pre-built layout structures for different types of websites and applications.</p>
+        
+        <div class="component-demo">
+          <div class="component-demo-header">
+            <span>Blog Layout</span>
+          </div>
+          <div class="component-demo-body">
+            <div class="layout-blog">
+              <div class="main-content">
+                <div class="layout-demo main-demo">Main Content Area</div>
+              </div>
+              <div class="sidebar">
+                <div class="layout-demo sidebar-demo">Sidebar</div>
+              </div>
+            </div>
+            
+            <div class="code-block">
+              &lt;div class="layout-blog"&gt;
+                &lt;div class="main-content"&gt;
+                  &lt;!-- Main content here --&gt;
+                &lt;/div&gt;
+                &lt;div class="sidebar"&gt;
+                  &lt;!-- Sidebar content here --&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            </div>
+          </div>
+        </div>
+        
+        <div class="component-demo">
+          <div class="component-demo-header">
+            <span>Portfolio Layout</span>
+          </div>
+          <div class="component-demo-body">
+            <div class="layout-portfolio portfolio-3col">
+              <div class="layout-demo">Portfolio Item 1</div>
+              <div class="layout-demo">Portfolio Item 2</div>
+              <div class="layout-demo">Portfolio Item 3</div>
+              <div class="layout-demo">Portfolio Item 4</div>
+              <div class="layout-demo">Portfolio Item 5</div>
+              <div class="layout-demo">Portfolio Item 6</div>
+            </div>
+            
+            <div class="code-block">
+              &lt;div class="layout-portfolio portfolio-3col"&gt;
+                &lt;div&gt;Portfolio Item 1&lt;/div&gt;
+                &lt;div&gt;Portfolio Item 2&lt;/div&gt;
+                &lt;div&gt;Portfolio Item 3&lt;/div&gt;
+                &lt;!-- More items --&gt;
+              &lt;/div&gt;
+            </div>
+          </div>
+        </div>
+        
+        <div class="component-demo">
+          <div class="component-demo-header">
+            <span>Magazine Layout</span>
+          </div>
+          <div class="component-demo-body">
+            <div class="layout-magazine">
+              <div class="magazine-featured layout-demo">Featured Article</div>
+              
+              <div class="magazine-split">
+                <div>
+                  <div class="layout-demo">Main Column</div>
+                </div>
+                <div>
+                  <div class="layout-demo">Side Column</div>
+                </div>
+              </div>
+              
+              <div class="magazine-grid">
+                <div class="layout-demo">Article 1</div>
+                <div class="layout-demo">Article 2</div>
+                <div class="layout-demo">Article 3</div>
+              </div>
+            </div>
+            
+            <div class="code-block">
+              &lt;div class="layout-magazine"&gt;
+                &lt;div class="magazine-featured"&gt;
+                  &lt;!-- Featured content --&gt;
+                &lt;/div&gt;
+                
+                &lt;div class="magazine-split"&gt;
+                  &lt;div&gt;&lt;!-- Main column --&gt;&lt;/div&gt;
+                  &lt;div&gt;&lt;!-- Side column --&gt;&lt;/div&gt;
+                &lt;/div&gt;
+                
+                &lt;div class="magazine-grid"&gt;
+                  &lt;div&gt;Article 1&lt;/div&gt;
+                  &lt;div&gt;Article 2&lt;/div&gt;
+                  &lt;div&gt;Article 3&lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            </div>
+          </div>
+        </div>
+        
+        <div class="component-demo">
+          <div class="component-demo-header">
+            <span>Dashboard Layout</span>
+          </div>
+          <div class="component-demo-body">
+            <div class="layout-demo">
+              <p>Dashboard layout uses a full-height grid with header, sidebar, and main content areas.</p>
+              <p>View the layout CSS file for implementation details.</p>
+            </div>
+            
+            <div class="code-block">
+              &lt;div class="layout-dashboard"&gt;
+                &lt;header class="dashboard-header"&gt;
+                  &lt;!-- Header content --&gt;
+                &lt;/header&gt;
+                
+                &lt;aside class="dashboard-sidebar"&gt;
+                  &lt;!-- Sidebar navigation --&gt;
+                &lt;/aside&gt;
+                
+                &lt;main class="dashboard-main"&gt;
+                  &lt;!-- Main content --&gt;
+                &lt;/main&gt;
+              &lt;/div&gt;
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Typography Tab -->
+      <div id="typography" class="custom-tab-content">
+        <h2 class="typography-header">type<span class="subtle">faces</span></h2>
+        <p class="text-center">Typography showcase and stress tests for the Typography-First template system.</p>
+        
+        <div class="component-demo">
+          <div class="component-demo-header">
+            <span>Font Pairings</span>
+          </div>
+          <div class="component-demo-body">
+            <div class="font-pairing-preview">
+              <h3 id="current-font-title">Current Font Pairing</h3>
+              <div class="font-sample-grid">
+                <div>
+                  <h4 id="heading-font-name">EB Garamond</h4>
+                  <p style="font-family: var(--font-heading);" id="heading-font-sample">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789</p>
+                </div>
+                <div>
+                  <h4 id="body-font-name">Plus Jakarta Sans</h4>
+                  <p style="font-family: var(--font-body);" id="body-font-sample">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="component-demo">
+          <div class="component-demo-header">
+            <span>Standard Typography Elements</span>
+          </div>
+          <div class="component-demo-body">
+            <div class="grid-2 my-3">
+              <div>
+                <h1>Heading 1</h1>
+                <h2>Heading 2</h2>
+                <h3>Heading 3</h3>
+                <h4>Heading 4</h4>
+                <h5>Heading 5</h5>
+                <h6>Heading 6</h6>
+              </div>
+              <div>
+                <p>This is a paragraph with <strong>bold text</strong>, <em>italic text</em>, and <a href="#">a hyperlink</a>. The base font pairing offers excellent readability for body text and elegant headings.</p>
+                
+                <p>Line length is limited for optimal readability, and line height is set to provide comfortable vertical rhythm.</p>
+                
+                <blockquote>
+                  "Typography is what language looks like."<br>— Ellen Lupton
+                </blockquote>
+                
+                <p>Here's a keyboard shortcut: press <kbd>Ctrl</kbd> + <kbd>S</kbd> to save.</p>
+                
+                <p>Here's some <code>inline code</code> and a <mark>highlighted text</mark>.</p>
+              </div>
+            </div>
+            
+            <div class="my-4"></div>
+            
+            <h3>Lists</h3>
+            <div class="grid-2">
+              <div>
+                <h4>Unordered List</h4>
+                <ul>
+                  <li>Item one</li>
+                  <li>Item two with <a href="#">a link</a></li>
+                  <li>Item three
+                    <ul>
+                      <li>Nested item one</li>
+                      <li>Nested item two</li>
+                    </ul>
+                  </li>
+                  <li>Item four</li>
+                </ul>
+              </div>
+              <div>
+                <h4>Ordered List</h4>
+                <ol>
+                  <li>First item</li>
+                  <li>Second item</li>
+                  <li>Third item
+                    <ol>
+                      <li>Nested ordered item</li>
+                      <li>Another nested item</li>
+                    </ol>
+                  </li>
+                  <li>Fourth item</li>
+                </ol>
+              </div>
+            </div>
+            
+            <div class="my-3">
+              <h4>Definition List</h4>
+              <dl>
+                <dt>Typography</dt>
+                <dd>The art and technique of arranging type to make written language legible, readable, and appealing.</dd>
+                
+                <dt>Vertical Rhythm</dt>
+                <dd>A consistent vertical spacing between elements on a page, creating a sense of harmony and balance.</dd>
+                
+                <dt>Design Tokens</dt>
+                <dd>Named values that form the smallest pieces of a design system, such as colors, spacing, and typography values.</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+        
+        <div class="component-demo">
+          <details class="typography-stress-tests">
+            <summary class="component-demo-header">
+              <span>Typography Stress Tests</span>
+            </summary>
+            <div class="component-demo-body">
+              <h3>Very Long Headlines Test</h3>
+              <h1 class="long-headline">This is an extraordinarily, overwhelmingly, and unnecessarily lengthy heading that is designed specifically to test how the typography system handles extremely long lines of text in headings</h1>
+              <h2 class="long-headline">Another exceptionally long subheading that continues for quite some time to ensure proper wrapping, spacing, and line-height settings are appropriately configured for readability</h2>
+              
+              <div class="my-4"></div>
+              
+              <h3>Justified Text</h3>
+              <p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              
+              <p style="text-align: justify;">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              
+              <div class="my-4"></div>
+              
+              <h3>Multilingual Typography</h3>
+              <div class="multilingual-demo">
+                <div>
+                  <h4>Chinese (CJK)</h4>
+                  <p>你好，世界！这是一个测试中文字体渲染的示例文本。Typography-First模板应该能够正确显示各种语言的文字，包括中文、日文和韩文等CJK字符。</p>
+                  
+                  <h4>Japanese</h4>
+                  <p>こんにちは世界！これは日本語のフォントレンダリングをテストするためのサンプルテキストです。Typography-Firstテンプレートは、日本語を含むさまざまな言語を適切に表示できるはずです。</p>
+                </div>
+                <div>
+                  <h4>Arabic (RTL)</h4>
+                  <p style="direction: rtl; text-align: right;">مرحبا بالعالم! هذا نص عينة لاختبار عرض الخط العربي. يجب أن يكون قالب Typography-First قادرًا على عرض النصوص العربية وغيرها من النصوص من اليمين إلى اليسار بشكل صحيح.</p>
+                  
+                  <h4>Hebrew (RTL)</h4>
+                  <p style="direction: rtl; text-align: right;">שלום עולם! זוהי דוגמה לבדיקת הרינדור של גופנים בעברית. תבנית Typography-First אמורה להציג טקסט בעברית ושפות אחרות מימין לשמאל באופן נכון.</p>
+                </div>
+              </div>
+              
+              <div class="my-4"></div>
+              
+              <h3>Nested Lists</h3>
+              <ul>
+                <li>First level item 1</li>
+                <li>First level item 2
+                  <ul>
+                    <li>Second level item 1</li>
+                    <li>Second level item 2
+                      <ul>
+                        <li>Third level item 1</li>
+                        <li>Third level item 2
+                          <ul>
+                            <li>Fourth level item 1</li>
+                            <li>Fourth level item 2</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>First level item 3</li>
+              </ul>
+              
+              <ol>
+                <li>First level numbered item 1</li>
+                <li>First level numbered item 2
+                  <ol>
+                    <li>Second level numbered item 1</li>
+                    <li>Second level numbered item 2
+                      <ol>
+                        <li>Third level numbered item 1</li>
+                        <li>Third level numbered item 2</li>
+                      </ol>
+                    </li>
+                  </ol>
+                </li>
+                <li>First level numbered item 3</li>
+              </ol>
+            </div>
+          </details>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Animations Tab -->
+      <div id="animations" class="custom-tab-content">
+        <h2 class="micro-animations-logo">micro<span class="subtle">animations</span></h2>
+        <p class="text-center">Ultra-light JS animation framework. Typography-first, fast, and accessible.</p>
+        
+        <section class="my-4">
+          <h3>Basic Animation</h3>
+          <div class="demo-wrapper">
+            <div id="basic-demo" class="demo-box">Box</div>
+            <div class="demo-controls">
+              <button id="fade-in" class="btn-outline-sm">Fade In</button>
+              <button id="fade-out" class="btn-outline-sm">Fade Out</button>
+              <button id="slide-in" class="btn-outline-sm">Slide In</button>
+              <button id="pulse" class="btn-outline-sm">Pulse</button>
+              <button id="shake" class="btn-outline-sm">Shake</button>
+              <button id="reset" class="btn-outline-sm">Reset</button>
+            </div>
+          </div>
+        </section>
+        
+        <section class="my-4">
+          <h3>Animation Sequences</h3>
+          <div class="demo-wrapper">
+            <div class="sequence-demo">
+              <div class="sequence-item" id="seq-item-1">1</div>
+              <div class="sequence-item" id="seq-item-2">2</div>
+              <div class="sequence-item" id="seq-item-3">3</div>
+              <div class="sequence-item" id="seq-item-4">4</div>
+              <div class="sequence-item" id="seq-item-5">5</div>
+            </div>
+            <div class="demo-controls">
+              <button id="play-sequence" class="btn-outline-sm">Play Sequence</button>
+              <button id="play-staggered" class="btn-outline-sm">Play Staggered</button>
+            </div>
+          </div>
+        </section>
+        
+        <section class="my-4">
+          <h3>Custom Animations</h3>
+          <div class="demo-wrapper">
+            <div id="custom-demo" class="demo-text">Custom Animation</div>
+            <div class="demo-controls">
+              <button id="typewriter" class="btn-outline-sm">Typewriter</button>
+              <button id="letter-spacing" class="btn-outline-sm">Letter Spacing</button>
+              <button id="luxury-reveal" class="btn-outline-sm">Luxury Reveal</button>
+              <button id="custom-reset" class="btn-outline-sm">Reset</button>
+            </div>
+          </div>
+        </section>
+        
+        <section class="my-4">
+          <h3>Scroll Animations</h3>
+          <p>Elements with data-animation attributes animate when scrolled into view.</p>
+          
+          <div class="grid-3 my-4">
+            <div class="demo-box" data-animation="fadeIn" data-animation-delay="100">Fade In</div>
+            <div class="demo-box" data-animation="slideInUp" data-animation-delay="200">Slide Up</div>
+            <div class="demo-box" data-animation="zoomIn" data-animation-delay="300">Zoom In</div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="container py-4 mt-4">
+    <hr>
+    <div class="text-center my-3">
+      <p>&copy; 2025 Typography-First Template. Built with semantic HTML, custom CSS, and native Web Components.</p>
+    </div>
+  </footer>
+  
+  <!-- Fixed control buttons -->
+  <div class="fixed-controls">
+    <button id="font-toggle" class="font-toggle-btn" aria-label="Change typography">
+      <svg id="font-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.5 4v2h-2v12h-2V6h-2V4h6zm5.05 4C16.86 8 18 9.09 18 11c0 1.91-1.14 3-2.45 3h-.44v4h-2V8h2.05zm0 4c.5 0 .95-.43.95-1s-.45-1-.95-1h-.05v2h.05z" fill="currentColor"/>
+      </svg>
+    </button>
+    <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">
+      <svg id="theme-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21 12.79A9 9 0 0112.21 3a7 7 0 109.79 9.79z" fill="currentColor"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Font Selector Modal -->
+  <div id="font-selector-modal" class="font-selector-modal">
+    <div class="font-selector-header">
+      <h3>Choose Font Pairing</h3>
+      <button id="font-selector-close" class="font-selector-close" aria-label="Close font selector">×</button>
+    </div>
+    <div class="font-selector-content">
+      <div class="font-options-grid">
+        <div class="font-option" data-font-pair="EB Garamond|Plus Jakarta Sans">
+          <div class="font-pair-heading" style="font-family: 'EB Garamond', serif; font-weight: 700;">EB Garamond</div>
+          <div class="font-pair-body" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 400;">Plus Jakarta Sans</div>
+        </div>
+        <div class="font-option" data-font-pair="DM Serif Display|Inter">
+          <div class="font-pair-heading" style="font-family: 'DM Serif Display', serif; font-weight: 400;">DM Serif Display</div>
+          <div class="font-pair-body" style="font-family: 'Inter', sans-serif; font-weight: 400;">Inter</div>
+        </div>
+        <div class="font-option" data-font-pair="Merriweather|Work Sans">
+          <div class="font-pair-heading" style="font-family: 'Merriweather', serif; font-weight: 700;">Merriweather</div>
+          <div class="font-pair-body" style="font-family: 'Work Sans', sans-serif; font-weight: 400;">Work Sans</div>
+        </div>
+        <div class="font-option" data-font-pair="Cormorant Garamond|Raleway">
+          <div class="font-pair-heading" style="font-family: 'Cormorant Garamond', serif; font-weight: 700;">Cormorant Garamond</div>
+          <div class="font-pair-body" style="font-family: 'Raleway', sans-serif; font-weight: 400;">Raleway</div>
+        </div>
+        <div class="font-option" data-font-pair="Lora|Source Sans Pro">
+          <div class="font-pair-heading" style="font-family: 'Lora', serif; font-weight: 700;">Lora</div>
+          <div class="font-pair-body" style="font-family: 'Source Sans Pro', sans-serif; font-weight: 400;">Source Sans Pro</div>
+        </div>
+        <div class="font-option" data-font-pair="Vollkorn|Noto Sans">
+          <div class="font-pair-heading" style="font-family: 'Vollkorn', serif; font-weight: 700;">Vollkorn</div>
+          <div class="font-pair-body" style="font-family: 'Noto Sans', sans-serif; font-weight: 400;">Noto Sans</div>
+        </div>
+        <div class="font-option" data-font-pair="Outfit|Inter">
+          <div class="font-pair-heading" style="font-family: 'Outfit', sans-serif; font-weight: 700;">Outfit</div>
+          <div class="font-pair-body" style="font-family: 'Inter', sans-serif; font-weight: 400;">Inter</div>
+        </div>
+        <div class="font-option" data-font-pair="Montserrat|Roboto">
+          <div class="font-pair-heading" style="font-family: 'Montserrat', sans-serif; font-weight: 700;">Montserrat</div>
+          <div class="font-pair-body" style="font-family: 'Roboto', sans-serif; font-weight: 400;">Roboto</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="../js/theme-toggle.js?v=20230428" defer></script>
+  <script src="../js/font-switcher.js?v=20230428" defer></script>
+  <script src="../js/lazy-loader.js?v=20230428" defer></script>
+  <script src="../js/micro-animations.js?v=20230428" defer></script>
+  <script src="../js/web-components.js?v=20230428" defer></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Ensure page loads at the top
+      window.scrollTo(0, 0);
+      
+      // Apply animation to all text elements when font changes
+      // and update the font sample display
+      const fontSelect = document.getElementById('font-pairing-select');
+      if (fontSelect) {
+        // Initial update of font sample display
+        updateFontSampleDisplay();
+        
+        fontSelect.addEventListener('change', () => {
+          // Let's apply the zoom animation to all typography elements
+          const animatedElements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, li, blockquote');
+          animatedElements.forEach(el => {
+            el.classList.add('font-zoom');
+            setTimeout(() => {
+              el.classList.remove('font-zoom');
+            }, 800);
+          });
+          
+          // Update the font sample display after a slight delay
+          setTimeout(updateFontSampleDisplay, 100);
+        });
+      }
+      
+      // Font selector modal functionality
+      const fontToggle = document.getElementById('font-toggle'); // Keep the ID the same
+      const fontSelectorModal = document.getElementById('font-selector-modal');
+      const fontSelectorClose = document.getElementById('font-selector-close');
+      const fontOptions = document.querySelectorAll('.font-option');
+      
+      // Mark the currently selected font option
+      const updateSelectedFontOption = () => {
+        const currentFontPair = fontSelect?.value || window.fontSwitcher?.getSelected() || 'EB Garamond|Plus Jakarta Sans';
+        
+        fontOptions.forEach(option => {
+          const fontPair = option.getAttribute('data-font-pair');
+          if (fontPair === currentFontPair) {
+            option.classList.add('selected');
+          } else {
+            option.classList.remove('selected');
+          }
+        });
+      };
+      
+      // Toggle the font selector modal
+      if (fontToggle && fontSelectorModal) {
+        // Open the modal when the font toggle is clicked
+        fontToggle.addEventListener('click', () => {
+          fontSelectorModal.classList.add('open');
+          document.body.style.overflow = 'hidden'; // Prevent scrolling
+          updateSelectedFontOption();
+          
+          // Animate the font icon with a pulse effect
+          const fontIcon = document.getElementById('font-icon');
+          if (fontIcon) {
+            fontIcon.classList.remove('theme-icon-animate');
+            void fontIcon.offsetWidth; // Force reflow
+            fontIcon.classList.add('theme-icon-animate');
+          }
+        });
+        
+        // Close the modal when the close button is clicked
+        if (fontSelectorClose) {
+          fontSelectorClose.addEventListener('click', () => {
+            fontSelectorModal.classList.remove('open');
+            document.body.style.overflow = ''; // Restore scrolling
+          });
+        }
+        
+        // Close the modal when clicking outside the content
+        fontSelectorModal.addEventListener('click', (e) => {
+          if (e.target === fontSelectorModal) {
+            fontSelectorModal.classList.remove('open');
+            document.body.style.overflow = ''; // Restore scrolling
+          }
+        });
+        
+        // Close the modal when escape key is pressed
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && fontSelectorModal.classList.contains('open')) {
+            fontSelectorModal.classList.remove('open');
+            document.body.style.overflow = ''; // Restore scrolling
+          }
+        });
+        
+        // Handle font option selection
+        fontOptions.forEach(option => {
+          option.addEventListener('click', () => {
+            const fontPair = option.getAttribute('data-font-pair');
+            if (fontPair && fontSelect) {
+              // Update the select element value
+              fontSelect.value = fontPair;
+              
+              // Trigger the change event
+              const event = new Event('change');
+              fontSelect.dispatchEvent(event);
+              
+              // Update the selected option
+              updateSelectedFontOption();
+              
+              // Close the modal after selection with a slight delay
+              setTimeout(() => {
+                fontSelectorModal.classList.remove('open');
+                document.body.style.overflow = ''; // Restore scrolling
+              }, 300);
+            }
+          });
+        });
+      }
+      
+      // Function to update the font sample display
+      function updateFontSampleDisplay() {
+        const headingFontName = document.getElementById('heading-font-name');
+        const bodyFontName = document.getElementById('body-font-name');
+        const headingFontSample = document.getElementById('heading-font-sample');
+        const bodyFontSample = document.getElementById('body-font-sample');
+        const fontTitle = document.getElementById('current-font-title');
+        
+        if (headingFontName && bodyFontName) {
+          // Get the current font pair
+          const fontSelect = document.getElementById('font-pairing-select');
+          if (fontSelect) {
+            const selectedValue = fontSelect.value;
+            const [heading, body] = selectedValue.split('|').map(f => f.trim());
+            
+            // Update the font names and samples
+            headingFontName.textContent = heading;
+            bodyFontName.textContent = body;
+            fontTitle.textContent = `Current Font Pairing: ${heading} + ${body}`;
+            
+            // The samples are already using var(--font-heading) and var(--font-body)
+            // which update automatically with the font-switcher.js script
+            
+            // Add animation to the samples
+            [headingFontName, bodyFontName, headingFontSample, bodyFontSample].forEach(el => {
+              if (el) {
+                el.classList.add('font-zoom');
+                setTimeout(() => {
+                  el.classList.remove('font-zoom');
+                }, 800);
+              }
+            });
+          }
+        }
+      }
+      
+      // Custom tabs implementation
+      const tabButtons = document.querySelectorAll('.custom-tab-button');
+      const tabContents = document.querySelectorAll('.custom-tab-content');
+      
+      tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Remove active class from all buttons and contents
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          tabContents.forEach(content => content.classList.remove('active'));
+          
+          // Add active class to clicked button and corresponding content
+          button.classList.add('active');
+          const tabId = button.getAttribute('data-tab');
+          document.getElementById(tabId).classList.add('active');
+          
+          // Scroll to the tabs area
+          const tabsContainer = document.querySelector('.custom-tabs');
+          if (tabsContainer) {
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const tabsTop = tabsContainer.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+            window.scrollTo({
+              top: tabsTop,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+      
+      // Toggle Switch Demo
+      const demoToggle = document.getElementById('demo-toggle');
+      const toggleOutput = document.getElementById('toggle-demo-output');
+      
+      if (demoToggle && toggleOutput) {
+        // Initial state
+        toggleOutput.textContent = `Toggle state: ${demoToggle.checked ? 'ON' : 'OFF'}`;
+        toggleOutput.className = demoToggle.checked ? 'toggle-output toggle-on' : 'toggle-output toggle-off';
+        
+        // Handle toggle change
+        demoToggle.addEventListener('change', (e) => {
+          const isOn = e.detail.checked;
+          toggleOutput.textContent = `Toggle state: ${isOn ? 'ON' : 'OFF'}`;
+          
+          // Update class for styling
+          if (isOn) {
+            toggleOutput.classList.add('toggle-on');
+            toggleOutput.classList.remove('toggle-off');
+          } else {
+            toggleOutput.classList.add('toggle-off');
+            toggleOutput.classList.remove('toggle-on');
+          }
+          
+          // Show animation when toggled
+          animationFramework.presets.pulse(toggleOutput, { duration: 300 });
+        });
+      }
+      
+      // Animation Tab Demos
+      // Basic animations
+      const basicDemo = document.getElementById('basic-demo');
+      
+      if (basicDemo) {
+        document.getElementById('fade-in').addEventListener('click', () => {
+          basicDemo.style.opacity = 0;
+          animationFramework.presets.fadeIn(basicDemo, { duration: 800 });
+        });
+        
+        document.getElementById('fade-out').addEventListener('click', () => {
+          basicDemo.style.opacity = 1;
+          animationFramework.presets.fadeOut(basicDemo, { duration: 800 });
+        });
+        
+        document.getElementById('slide-in').addEventListener('click', () => {
+          basicDemo.style.opacity = 0;
+          basicDemo.style.transform = 'translateX(-100%)';
+          animationFramework.presets.slideInRight(basicDemo, { duration: 800 });
+        });
+        
+        document.getElementById('pulse').addEventListener('click', () => {
+          animationFramework.presets.pulse(basicDemo, { duration: 800 });
+        });
+        
+        document.getElementById('shake').addEventListener('click', () => {
+          animationFramework.presets.shake(basicDemo, { duration: 500 });
+        });
+        
+        document.getElementById('reset').addEventListener('click', () => {
+          basicDemo.style.opacity = 1;
+          basicDemo.style.transform = 'translateX(0) scale(1)';
+        });
+      }
+      
+      // Sequence demo
+      const sequenceItems = [
+        document.getElementById('seq-item-1'),
+        document.getElementById('seq-item-2'),
+        document.getElementById('seq-item-3'),
+        document.getElementById('seq-item-4'),
+        document.getElementById('seq-item-5')
+      ];
+      
+      // Only initialize if all elements exist
+      if (sequenceItems[0] && document.getElementById('play-sequence')) {
+        // Reset sequence items
+        const resetSequence = () => {
+          sequenceItems.forEach(item => {
+            if (item) item.style.opacity = 0;
+          });
+        };
+        
+        // Initial reset
+        resetSequence();
+        
+        document.getElementById('play-sequence').addEventListener('click', () => {
+          resetSequence();
+          
+          // Create and play an animation sequence
+          const sequence = animationFramework.createSequence();
+          
+          sequenceItems.forEach(item => {
+            if (item) {
+              sequence.add(animationFramework.presets.fadeIn(item, { duration: 300 }), 200);
+            }
+          });
+          
+          sequence.play();
+        });
+        
+        document.getElementById('play-staggered').addEventListener('click', () => {
+          resetSequence();
+          
+          // Filter out any null items
+          const validItems = sequenceItems.filter(item => item !== null);
+          
+          // Create and play a staggered animation group
+          const staggered = animationFramework.stagger(validItems, 'fadeIn', { 
+            duration: 500,
+            staggerDelay: 100
+          });
+          
+          staggered.play();
+        });
+      }
+      
+      // Custom animations demo
+      const customDemo = document.getElementById('custom-demo');
+      
+      if (customDemo) {
+        document.getElementById('typewriter').addEventListener('click', () => {
+          customDemo.textContent = 'Custom Animation';
+          
+          animationFramework.presets.typewriter(customDemo, {
+            duration: 1500,
+            easing: 'linear',
+            fillMode: 'forwards'
+          });
+        });
+        
+        document.getElementById('letter-spacing').addEventListener('click', () => {
+          customDemo.textContent = 'Letter Spacing';
+          customDemo.style.opacity = 1;
+          
+          animationFramework.presets.letterSpacing(customDemo, {
+            duration: 1000,
+            easing: 'smooth'
+          });
+        });
+        
+        document.getElementById('luxury-reveal').addEventListener('click', () => {
+          customDemo.textContent = 'Luxury Reveal';
+          customDemo.style.opacity = 0;
+          
+          animationFramework.presets.luxuryReveal(customDemo, {
+            duration: 1200,
+            easing: 'elegant'
+          });
+        });
+        
+        document.getElementById('custom-reset').addEventListener('click', () => {
+          customDemo.textContent = 'Custom Animation';
+          customDemo.style.opacity = 1;
+          customDemo.style.letterSpacing = '';
+        });
+      }
+    });
+  </script>
+</body>
+</html>

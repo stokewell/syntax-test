@@ -1,0 +1,44 @@
+{
+  "$schema": "https://raw.githubusercontent.com/stokewell/syntax/main/consumer/schema/syntax-project.schema.json",
+  "schemaVersion": 1,
+  "syntaxVersion": "1.2.0",
+  "project": {
+    "name": "Mara Vale",
+    "slug": "mara-vale",
+    "description": "Selected editorial design, research, and independent publishing work.",
+    "author": "Mara Vale",
+    "canonicalUrl": null,
+    "repositoryUrl": null,
+    "primaryAction": {
+      "label": "Discuss a project",
+      "destination": "mailto:hello@example.com"
+    },
+    "secondaryAction": null
+  },
+  "recipe": {
+    "id": "portfolio",
+    "version": 1,
+    "data": {
+      "role": "Editorial designer and researcher",
+      "intro": "I turn research-heavy subjects into clear visual systems, publications, and digital experiences.",
+      "aboutTitle": "Make the complex feel inevitable.",
+      "about": "My work combines editorial judgment, information design, and careful production. I like projects where the structure is part of the argument.",
+      "currently": "Developing an independent journal about overlooked civic systems.",
+      "closingTitle": "A good project leaves the subject clearer than it found it.",
+      "projects": [
+        {
+          "title": "The Public Ledger",
+          "status": "Publication system",
+          "description": "A modular editorial identity and reading system for long-form reporting on public infrastructure.",
+          "url": "https://example.com/public-ledger",
+          "tags": ["Editorial", "Identity", "Information design"]
+        }
+      ]
+    }
+  },
+  "visualDirection": "editorial",
+  "accentColor": "#9B3D2F",
+  "features": [],
+  "mode": "prototype",
+  "deployment": "none"
+}

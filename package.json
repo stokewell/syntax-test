@@ -1,0 +1,38 @@
+{
+  "name": "syntax-typography-starter",
+  "version": "1.2.0",
+  "private": true,
+  "description": "A typography-first website starter and lightweight design system.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "setup": "node scripts/setup.mjs",
+    "prepare:ship": "node scripts/prepare-ship.mjs",
+    "consumer:fixtures": "node scripts/generate-consumer-fixtures.mjs",
+    "consumer:previews": "node scripts/generate-consumer-previews.mjs",
+    "lint:js": "eslint js/config/font-pairs.js js/utilities/theme-toggle.js js/utilities/font-switcher.js js/components/navigation.js js/components/modal.js js/components/web-components.js js/main.js lab/lab.js consumer/index.mjs \"consumer/**/*.mjs\" scripts tests eslint.config.js playwright.config.js",
+    "lint:css": "stylelint css/tokens.css css/reset.css css/themes.css css/style.css css/components/a11y.css css/components/grid.css css/components/modern-header.css css/components/sections.css css/components/features.css css/components/feature-card.css css/components/buttons.css css/components/controls.css css/components/modal.css demo/demo.css lab/lab.css \"consumer/**/*.css\"",
+    "format": "prettier --write index.html demo/index.html demo/demo.css lab/index.html lab/lab.css lab/lab.js css/tokens.css css/reset.css css/themes.css css/style.css css/components/a11y.css css/components/grid.css css/components/modern-header.css css/components/sections.css css/components/features.css css/components/feature-card.css css/components/buttons.css css/components/controls.css css/components/modal.css js/config/font-pairs.js js/utilities/theme-toggle.js js/utilities/font-switcher.js js/components/navigation.js js/components/modal.js js/components/web-components.js js/main.js consumer scripts tests package.json eslint.config.js playwright.config.js .stylelintrc .prettierrc.json .github/workflows/ci.yml README.md docs/STYLE_GUIDE.md docs/COMPONENT_LAB.md docs/CONSUMER_MODE_PLAN.md docs/CONSUMER_MODE_OWNERSHIP.md docs/CONSUMER_RECIPES.md docs/CONSUMER_RECIPE_EVIDENCE.md docs/CONSUMER_SETUP.md docs/CONSUMER_SHIP.md v2-ideas.md CHANGELOG.md site.webmanifest",
+    "format:check": "prettier --check index.html demo/index.html demo/demo.css lab/index.html lab/lab.css lab/lab.js css/tokens.css css/reset.css css/themes.css css/style.css css/components/a11y.css css/components/grid.css css/components/modern-header.css css/components/sections.css css/components/features.css css/components/feature-card.css css/components/buttons.css css/components/controls.css css/components/modal.css js/config/font-pairs.js js/utilities/theme-toggle.js js/utilities/font-switcher.js js/components/navigation.js js/components/modal.js js/components/web-components.js js/main.js consumer scripts tests package.json eslint.config.js playwright.config.js .stylelintrc .prettierrc.json .github/workflows/ci.yml README.md docs/STYLE_GUIDE.md docs/COMPONENT_LAB.md docs/CONSUMER_MODE_PLAN.md docs/CONSUMER_MODE_OWNERSHIP.md docs/CONSUMER_RECIPES.md docs/CONSUMER_RECIPE_EVIDENCE.md docs/CONSUMER_SETUP.md docs/CONSUMER_SHIP.md v2-ideas.md CHANGELOG.md site.webmanifest",
+    "lint": "npm run lint:js && npm run lint:css",
+    "test:unit": "vitest run tests/unit",
+    "test:e2e": "npm run consumer:previews && playwright test",
+    "test:consumer-setup": "node scripts/verify-consumer-setup.mjs",
+    "test": "npm run test:unit",
+    "check": "npm run lint && npm run format:check && npm run test && npm run build && npm run test:e2e && npm run test:consumer-setup",
+    "serve": "http-server . -p 4173 -c-1"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
+    "@playwright/test": "^1.61.1",
+    "eslint": "^10.7.0",
+    "http-server": "^14.1.1",
+    "prettier": "^3.9.5",
+    "stylelint": "^17.14.0",
+    "stylelint-config-standard": "^40.0.0",
+    "vitest": "^4.1.10"
+  },
+  "engines": {
+    "node": ">=22.13"
+  }
+}

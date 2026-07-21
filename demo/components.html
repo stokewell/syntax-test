@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Components Demo - Typography-First Template</title>
+  
+  <!-- SEO and Open Graph metadata -->
+  <meta name="description" content="Native web components showcase for the Typography-First Website Template.">
+  <meta name="keywords" content="web components, typography, template, custom elements">
+  <meta name="author" content="Typography-First Template">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://stokewell.github.io/base/demo/components.html">
+  <meta property="og:title" content="Web Components Demo - Typography-First Template">
+  <meta property="og:description" content="Native web components showcase for the Typography-First Website Template.">
+  <meta property="og:image" content="https://stokewell.github.io/base/demo/og-image.jpg">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="../favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+  <!-- Fix for CORS issues with file:// protocol -->
+  <!-- <link rel="manifest" href="../site.webmanifest"> -->
+  
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/layouts.css">
+  
+  <!-- Google Fonts - only preload default fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link id="dynamic-fonts-live" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap">
+  
+  <style>
+    /* Demo-specific styles */
+    .component-demo {
+      margin-bottom: var(--space-6);
+      border: 1px solid var(--color-subtle);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .component-demo-header {
+      background-color: var(--color-subtle);
+      padding: var(--space-2) var(--space-3);
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .component-demo-body {
+      padding: var(--space-3);
+      min-height: 100px;
+    }
+    
+    .code-block {
+      background-color: rgba(0, 0, 0, 0.05);
+      border-radius: 4px;
+      padding: var(--space-2);
+      margin-top: var(--space-2);
+      overflow-x: auto;
+      font-family: monospace;
+      font-size: 0.9em;
+      color: var(--color-text);
+      border: 1px solid var(--color-subtle);
+    }
+    
+    .layout-demo {
+      border: 1px solid var(--color-subtle);
+      padding: var(--space-2);
+      margin-bottom: var(--space-2);
+      text-align: center;
+      background-color: rgba(var(--color-primary-rgb), 0.1);
+    }
+    
+    .sidebar-demo {
+      background-color: rgba(var(--color-primary-rgb), 0.2);
+      min-height: 200px;
+      padding: var(--space-2);
+    }
+    
+    .main-demo {
+      min-height: 400px;
+    }
+    
+    .grid-item-demo {
+      background-color: rgba(var(--color-primary-rgb), 0.1);
+      padding: var(--space-2);
+      border-radius: 4px;
+      height: 100%;
+    }
+    
+    /* Tab section styling */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-4);
+      padding-bottom: var(--space-2);
+      border-bottom: 1px solid var(--color-subtle);
+    }
+    
+    .section-header h2 {
+      margin: 0;
+    }
+    
+    /* Demo-wrapper from animations.html */
+    .demo-wrapper {
+      border: 1px solid var(--color-subtle);
+      border-radius: 8px;
+      padding: var(--space-3);
+      margin-bottom: var(--space-3);
+    }
+    
+    .demo-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-top: var(--space-2);
+    }
+    
+    .demo-box {
+      width: 100px;
+      height: 100px;
+      background-color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      margin: var(--space-3) auto;
+      border-radius: 4px;
+    }
+    
+    .sequence-demo {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-2);
+    }
+    
+    .sequence-item {
+      width: 50px;
+      height: 50px;
+      background-color: var(--color-primary);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+    
+    .demo-text {
+      font-size: var(--font-size-lg);
+      text-align: center;
+      margin: var(--space-4) 0;
+      padding: var(--space-4) 0;
+      display: block;
+      min-height: 80px;
+    }
+    
+    /* Main tabs container custom styling */
+    tabs-container:first-of-type {
+      margin-bottom: var(--space-4);
+    }
+    
+    tabs-container:first-of-type .tab-content {
+      padding-top: var(--space-4);
+    }
+    
+    /* Fix for tab panels */
+    .tab-panel {
+      border: none !important;
+      outline: none !important;
+    }
+    
+    /* Animation for tab transitions */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Dark mode adjustments */
+    [data-theme="dark"] .code-block {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+  </style>
+</head>
+<body>
+  <header class="container py-4">
+    <nav class="toolbar">
+      <a href="index.html" class="btn-outline-sm">← Back to Main Demo</a>
+      <a href="animations.html" class="btn-outline-sm">Animation Demo</a>
+    </nav>
+    
+    <h1 class="site-title">Web Components & Layouts</h1>
+    <p class="text-center">Native Web Components & Layout Variants for Typography-First Template</p>
+    <!-- Force cache refresh - updated: <?php echo date('Y-m-d H:i:s'); ?> -->
+  </header>
+
+  <main class="container">
+    <!-- Using the tabs-container web component for main navigation -->
+    <tabs-container>
+      <tab-item label="Web Components" selected>
+        <div class="section-header">
+          <h2>Native Web Components</h2>
+          <div>
+            <a href="index.html" class="btn-outline-sm">Back to Main Demo</a>
+          </div>
+        </div>
+        <p>These components are built with the Web Components API, requiring no frameworks or libraries.</p>
+        
+        <div class="component-demo">
+          <div class="component-demo-header">
+            <span>Responsive Image Component</span>
+          </div>
+          <div class="component-demo-body">
+            <responsive-image 
+              src="https://picsum.photos/id/20/800/400" 
+              alt="Sample landscape" 
+              aspect-ratio="16:9" 
+              lazy>
+              <span slot="caption">A beautiful landscape image with 16:9 aspect ratio and lazy loading</span>
+            </responsive-image>
+            
+            <div class="code-block">
+              &lt;responsive-image 
+                src="https://picsum.photos/id/20/800/400" 
+                alt="Sample landscape" 
+                aspect-ratio="16:9" 
+                lazy&gt;
+                &lt;span slot="caption"&gt;Caption text here&lt;/span&gt;
+              &lt;/responsive-image&gt;
+            </div>
+          </div>
+        </div>
+        
+        <div class="component-demo">
+          <div class="component-demo-header">
+            <span>Card Component</span>
+          </div>
+          <div class="component-demo-body">
+            <div class="grid-2">
+              <custom-card 
+                title="Basic Card"
+                shadow-level="1">
+                <p>This is a simple card component with title and content.</p>
+                <div slot="footer">
+                  <button class="btn-outline-sm">Learn More</button>
+                </div>
+              </custom-card>
+              
+              <custom-card 
+                title="Card with Image"
+                image="https://picsum.photos/id/48/800/400"
+                shadow-level="2"
+                clickable>
+                <p>This card has an image and is clickable. It also uses shadow level 2.</p>
+                <div slot="footer">
+                  <button class="btn-outline-sm">View Details</button>
+                </div>
+              </custom-card>
+            </div>
+            
+            <div class="code-block">
+              &lt;custom-card 
+                title="Card Title"
+                shadow-level="1"
+                clickable&gt;
+                &lt;p&gt;Card content goes here.&lt;/p&gt;
+                &lt;div slot="footer"&gt;
+                  &lt;button class="btn-outline-sm"&gt;Button&lt;/button&gt;
+                &lt;/div&gt;
+              &lt;/custom-card&gt;
+            </div>
+          </div>
+        </div>
+        
+        <div class="component-demo">
+          <div class="component-demo-header">
+            <span>Toggle Switch Component</span>
+          </div>
+          <div class="component-demo-body">
+            <div class="grid-2">
+              <div>
+                <toggle-switch label="Default Toggle"></toggle-switch>
+                <br>
+                <toggle-switch label="Pre-checked Toggle" checked></toggle-switch>
+                <br>
+                <toggle-switch label="Disabled Toggle" disabled></toggle-switch>
+              </div>
+              <div>
+                <div id="toggle-demo-output">Toggle not clicked yet</div>
+                <toggle-switch 
+                  id="demo-toggle" 
+                  label="Interactive Toggle"
+                  checked>
+                </toggle-switch>
+              </div>
+            </div>
+            
+            <div class="code-block">
+              &lt;toggle-switch label="Default Toggle"&gt;&lt;/toggle-switch&gt;
+              &lt;toggle-switch label="Pre-checked Toggle" checked&gt;&lt;/toggle-switch&gt;
+              &lt;toggle-switch label="Disabled Toggle" disabled&gt;&lt;/toggle-switch&gt;
+            </div>
+          </div>
+        </div>
+        
+        <div class="component-demo">
+          <div class="component-demo-header">
+            <span>Tabs Component</span>
+          </div>
+          <div class="component-demo-body">
+            <tabs-container>
+              <tab-item label="First Tab">
+                <h3>First Tab Content</h3>
+                <p>This is the content for the first tab. Tabs are fully accessible with keyboard navigation.</p>
+              </tab-item>
+              <tab-item label="Second Tab">
+                <h3>Second Tab Content</h3>
+                <p>Content for the second tab. You can navigate between tabs using the arrow keys.</p>
+              </tab-item>
+              <tab-item label="Third Tab">
+                <h3>Third Tab Content</h3>
+                <p>Here's the third tab content. These tabs are built with the native Web Components API.</p>
+              </tab-item>
+            </tabs-container>
+            
+            <div class="code-block">
+              &lt;tabs-container&gt;
+                &lt;tab-item label="First Tab"&gt;
+                  &lt;h3&gt;First Tab Content&lt;/h3&gt;
+                  &lt;p&gt;Content for the first tab.&lt;/p&gt;
+                &lt;/tab-item&gt;
+                &lt;tab-item label="Second Tab"&gt;
+                  &lt;h3&gt;Second Tab Content&lt;/h3&gt;
+                  &lt;p&gt;Content for the second tab.&lt;/p&gt;
+                &lt;/tab-item&gt;
+              &lt;/tabs-container&gt;
+            </div>
+          </div>
+        </div>
+      </tab-item>
+      
+      <tab-item label="Layout Variants">
+        <div class="section-header">
+          <h2>Layout Variants</h2>
+          <div>
+            <a href="index.html" class="btn-outline-sm">Back to Main Demo</a>
+          </div>
+        </div>
+        <p>Pre-built layout structures for different types of websites.</p>
+        
+        <div class="component-demo">
+          <div class="component-demo-header">
+            <span>Blog Layout</span>
+          </div>
+          <div class="component-demo-body">
+            <div class="layout-blog">
+              <div class="main-content">
+                <div class="layout-demo main-demo">Main Content Area</div>
+              </div>
+              <div class="sidebar">
+                <div class="layout-demo sidebar-demo">Sidebar</div>
+              </div>
+            </div>
+            
+            <div class="code-block">
+              &lt;div class="layout-blog"&gt;
+                &lt;div class="main-content"&gt;
+                  &lt;!-- Main content here --&gt;
+                &lt;/div&gt;
+                &lt;div class="sidebar"&gt;
+                  &lt;!-- Sidebar content here --&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            </div>
+          </div>
+        </div>
+        
+        <div class="component-demo">
+          <div class="component-demo-header">
+            <span>Portfolio Layout</span>
+          </div>
+          <div class="component-demo-body">
+            <div class="layout-portfolio portfolio-3col">
+              <div class="layout-demo">Portfolio Item 1</div>
+              <div class="layout-demo">Portfolio Item 2</div>
+              <div class="layout-demo">Portfolio Item 3</div>
+              <div class="layout-demo">Portfolio Item 4</div>
+              <div class="layout-demo">Portfolio Item 5</div>
+              <div class="layout-demo">Portfolio Item 6</div>
+            </div>
+            
+            <div class="code-block">
+              &lt;div class="layout-portfolio portfolio-3col"&gt;
+                &lt;div&gt;Portfolio Item 1&lt;/div&gt;
+                &lt;div&gt;Portfolio Item 2&lt;/div&gt;
+                &lt;div&gt;Portfolio Item 3&lt;/div&gt;
+                &lt;!-- More items --&gt;
+              &lt;/div&gt;
+            </div>
+          </div>
+        </div>
+        
+        <div class="component-demo">
+          <div class="component-demo-header">
+            <span>Magazine Layout</span>
+          </div>
+          <div class="component-demo-body">
+            <div class="layout-magazine">
+              <div class="magazine-featured layout-demo">Featured Article</div>
+              
+              <div class="magazine-split">
+                <div>
+                  <div class="layout-demo">Main Column</div>
+                </div>
+                <div>
+                  <div class="layout-demo">Side Column</div>
+                </div>
+              </div>
+              
+              <div class="magazine-grid">
+                <div class="layout-demo">Article 1</div>
+                <div class="layout-demo">Article 2</div>
+                <div class="layout-demo">Article 3</div>
+              </div>
+            </div>
+            
+            <div class="code-block">
+              &lt;div class="layout-magazine"&gt;
+                &lt;div class="magazine-featured"&gt;
+                  &lt;!-- Featured content --&gt;
+                &lt;/div&gt;
+                
+                &lt;div class="magazine-split"&gt;
+                  &lt;div&gt;&lt;!-- Main column --&gt;&lt;/div&gt;
+                  &lt;div&gt;&lt;!-- Side column --&gt;&lt;/div&gt;
+                &lt;/div&gt;
+                
+                &lt;div class="magazine-grid"&gt;
+                  &lt;div&gt;Article 1&lt;/div&gt;
+                  &lt;div&gt;Article 2&lt;/div&gt;
+                  &lt;div&gt;Article 3&lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            </div>
+          </div>
+        </div>
+        
+        <div class="component-demo">
+          <div class="component-demo-header">
+            <span>Dashboard Layout</span>
+          </div>
+          <div class="component-demo-body">
+            <div class="layout-demo">
+              <p>Dashboard layout uses a full-height grid with header, sidebar, and main content areas.</p>
+              <p>View the layout CSS file for implementation details.</p>
+            </div>
+            
+            <div class="code-block">
+              &lt;div class="layout-dashboard"&gt;
+                &lt;header class="dashboard-header"&gt;
+                  &lt;!-- Header content --&gt;
+                &lt;/header&gt;
+                
+                &lt;aside class="dashboard-sidebar"&gt;
+                  &lt;!-- Sidebar navigation --&gt;
+                &lt;/aside&gt;
+                
+                &lt;main class="dashboard-main"&gt;
+                  &lt;!-- Main content --&gt;
+                &lt;/main&gt;
+              &lt;/div&gt;
+            </div>
+          </div>
+        </div>
+      </tab-item>
+      
+      <tab-item label="Animations">
+        <div class="section-header">
+          <h2>Animation Framework</h2>
+          <div>
+            <a href="animations.html" class="btn-outline-sm">View Full Demo →</a>
+          </div>
+        </div>
+        <p>A lightweight, versatile animation system built with vanilla JavaScript and CSS.</p>
+        
+        <section class="my-4">
+          <h3>Basic Animation</h3>
+          <div class="demo-wrapper">
+            <div id="basic-demo" class="demo-box">Box</div>
+            <div class="demo-controls">
+              <button id="fade-in" class="btn-outline-sm">Fade In</button>
+              <button id="fade-out" class="btn-outline-sm">Fade Out</button>
+              <button id="slide-in" class="btn-outline-sm">Slide In</button>
+              <button id="pulse" class="btn-outline-sm">Pulse</button>
+              <button id="shake" class="btn-outline-sm">Shake</button>
+              <button id="reset" class="btn-outline-sm">Reset</button>
+            </div>
+          </div>
+        </section>
+        
+        <section class="my-4">
+          <h3>Animation Sequences</h3>
+          <div class="demo-wrapper">
+            <div class="sequence-demo">
+              <div class="sequence-item" id="seq-item-1">1</div>
+              <div class="sequence-item" id="seq-item-2">2</div>
+              <div class="sequence-item" id="seq-item-3">3</div>
+              <div class="sequence-item" id="seq-item-4">4</div>
+              <div class="sequence-item" id="seq-item-5">5</div>
+            </div>
+            <div class="demo-controls">
+              <button id="play-sequence" class="btn-outline-sm">Play Sequence</button>
+              <button id="play-staggered" class="btn-outline-sm">Play Staggered</button>
+            </div>
+          </div>
+        </section>
+        
+        <section class="my-4">
+          <h3>Custom Animations</h3>
+          <div class="demo-wrapper">
+            <div id="custom-demo" class="demo-text">Custom Animation</div>
+            <div class="demo-controls">
+              <button id="typewriter" class="btn-outline-sm">Typewriter</button>
+              <button id="letter-spacing" class="btn-outline-sm">Letter Spacing</button>
+              <button id="luxury-reveal" class="btn-outline-sm">Luxury Reveal</button>
+              <button id="custom-reset" class="btn-outline-sm">Reset</button>
+            </div>
+          </div>
+        </section>
+        
+        <section class="my-4">
+          <h3>Scroll Animations</h3>
+          <p>Elements with data-animation attributes animate when scrolled into view.</p>
+          
+          <div class="grid-3 my-4">
+            <div class="demo-box" data-animation="fadeIn" data-animation-delay="100">Fade In</div>
+            <div class="demo-box" data-animation="slideInUp" data-animation-delay="200">Slide Up</div>
+            <div class="demo-box" data-animation="zoomIn" data-animation-delay="300">Zoom In</div>
+          </div>
+        </section>
+      </tab-item>
+    </tabs-container>
+  </main>
+
+  <footer class="container py-4 mt-4">
+    <hr>
+    <div class="text-center my-3">
+      <p>&copy; 2025 Typography-First Template. Built with semantic HTML, custom CSS, and native Web Components.</p>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+        <svg id="theme-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 12.79A9 9 0 0112.21 3a7 7 0 109.79 9.79z" fill="currentColor"/>
+        </svg>
+      </button>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="../js/theme-toggle.js" defer></script>
+  <script src="../js/lazy-loader.js" defer></script>
+  <script src="../js/micro-animations.js" defer></script>
+  <script src="../js/web-components.js" defer></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Toggle Switch Demo
+      const demoToggle = document.getElementById('demo-toggle');
+      const toggleOutput = document.getElementById('toggle-demo-output');
+      
+      if (demoToggle && toggleOutput) {
+        toggleOutput.textContent = `Toggle state: ${demoToggle.checked ? 'ON' : 'OFF'}`;
+        
+        demoToggle.addEventListener('change', (e) => {
+          toggleOutput.textContent = `Toggle state: ${e.detail.checked ? 'ON' : 'OFF'}`;
+          
+          // Show animation when toggled
+          animationFramework.presets.pulse(toggleOutput, { duration: 300 });
+        });
+      }
+      
+      // Animation Tab Demos
+      // Basic animations
+      const basicDemo = document.getElementById('basic-demo');
+      
+      if (basicDemo) {
+        document.getElementById('fade-in').addEventListener('click', () => {
+          basicDemo.style.opacity = 0;
+          animationFramework.presets.fadeIn(basicDemo, { duration: 800 });
+        });
+        
+        document.getElementById('fade-out').addEventListener('click', () => {
+          basicDemo.style.opacity = 1;
+          animationFramework.presets.fadeOut(basicDemo, { duration: 800 });
+        });
+        
+        document.getElementById('slide-in').addEventListener('click', () => {
+          basicDemo.style.opacity = 0;
+          basicDemo.style.transform = 'translateX(-100%)';
+          animationFramework.presets.slideInRight(basicDemo, { duration: 800 });
+        });
+        
+        document.getElementById('pulse').addEventListener('click', () => {
+          animationFramework.presets.pulse(basicDemo, { duration: 800 });
+        });
+        
+        document.getElementById('shake').addEventListener('click', () => {
+          animationFramework.presets.shake(basicDemo, { duration: 500 });
+        });
+        
+        document.getElementById('reset').addEventListener('click', () => {
+          basicDemo.style.opacity = 1;
+          basicDemo.style.transform = 'translateX(0) scale(1)';
+        });
+      }
+      
+      // Sequence demo
+      const sequenceItems = [
+        document.getElementById('seq-item-1'),
+        document.getElementById('seq-item-2'),
+        document.getElementById('seq-item-3'),
+        document.getElementById('seq-item-4'),
+        document.getElementById('seq-item-5')
+      ];
+      
+      // Only initialize if all elements exist
+      if (sequenceItems[0] && document.getElementById('play-sequence')) {
+        // Reset sequence items
+        const resetSequence = () => {
+          sequenceItems.forEach(item => {
+            if (item) item.style.opacity = 0;
+          });
+        };
+        
+        // Initial reset
+        resetSequence();
+        
+        document.getElementById('play-sequence').addEventListener('click', () => {
+          resetSequence();
+          
+          // Create and play an animation sequence
+          const sequence = animationFramework.createSequence();
+          
+          sequenceItems.forEach(item => {
+            if (item) {
+              sequence.add(animationFramework.presets.fadeIn(item, { duration: 300 }), 200);
+            }
+          });
+          
+          sequence.play();
+        });
+        
+        document.getElementById('play-staggered').addEventListener('click', () => {
+          resetSequence();
+          
+          // Filter out any null items
+          const validItems = sequenceItems.filter(item => item !== null);
+          
+          // Create and play a staggered animation group
+          const staggered = animationFramework.stagger(validItems, 'fadeIn', { 
+            duration: 500,
+            staggerDelay: 100
+          });
+          
+          staggered.play();
+        });
+      }
+      
+      // Custom animations demo
+      const customDemo = document.getElementById('custom-demo');
+      
+      if (customDemo) {
+        document.getElementById('typewriter').addEventListener('click', () => {
+          customDemo.textContent = 'Custom Animation';
+          
+          animationFramework.presets.typewriter(customDemo, {
+            duration: 1500,
+            easing: 'linear',
+            fillMode: 'forwards'
+          });
+        });
+        
+        document.getElementById('letter-spacing').addEventListener('click', () => {
+          customDemo.textContent = 'Letter Spacing';
+          customDemo.style.opacity = 1;
+          
+          animationFramework.presets.letterSpacing(customDemo, {
+            duration: 1000,
+            easing: 'smooth'
+          });
+        });
+        
+        document.getElementById('luxury-reveal').addEventListener('click', () => {
+          customDemo.textContent = 'Luxury Reveal';
+          customDemo.style.opacity = 0;
+          
+          animationFramework.presets.luxuryReveal(customDemo, {
+            duration: 1200,
+            easing: 'elegant'
+          });
+        });
+        
+        document.getElementById('custom-reset').addEventListener('click', () => {
+          customDemo.textContent = 'Custom Animation';
+          customDemo.style.opacity = 1;
+          customDemo.style.letterSpacing = '';
+        });
+      }
+    });
+  </script>
+</body>
+</html>

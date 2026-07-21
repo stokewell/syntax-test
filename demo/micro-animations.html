@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Micro Animations Demo</title>
+
+  <!-- Base Styles -->
+  <link rel="stylesheet" href="../css/style.css">
+
+  <!-- Preload Default Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link id="dynamic-fonts-live" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap">
+
+  <style>
+    /* Demo page only */
+    .micro-animations-logo {
+      font-family: var(--font-heading);
+      font-size: var(--font-size-xl);
+      letter-spacing: -0.02em;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: var(--space-2);
+    }
+    .micro-animations-logo .subtle {
+      font-weight: 300;
+      opacity: 0.7;
+    }
+
+    .demo-wrapper {
+      border: 1px solid var(--color-subtle);
+      border-radius: 8px;
+      padding: var(--space-3);
+      margin-bottom: var(--space-4);
+    }
+ 
+    .demo-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      justify-content: center;
+      margin-top: var(--space-2);
+    }
+
+    .demo-box, .demo-text {
+      background-color: var(--color-primary);
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      padding: var(--space-3);
+      border-radius: 4px;
+      margin: var(--space-3) auto;
+    }
+
+    .scroll-section {
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-top: 1px solid var(--color-subtle);
+      margin-top: var(--space-5);
+    }
+
+    .code-block {
+      background: #f5f5f5;
+      border: 1px solid var(--color-subtle);
+      border-radius: 4px;
+      padding: var(--space-3);
+      overflow-x: auto;
+      font-family: monospace;
+      font-size: 0.9rem;
+    }
+    [data-theme="dark"] .code-block {
+      background: #2a2a2a;
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="container py-4">
+  <h1 class="micro-animations-logo">micro<span class="subtle">animations</span></h1>
+  <p class="text-center">Ultra-light JS animation framework. Typography-first, fast, and accessible.</p>
+</header>
+
+<main class="container">
+
+  <section class="my-4">
+    <h2>Basic Animations</h2>
+    <div class="demo-wrapper">
+      <div id="basic-demo" class="demo-box">Box</div>
+      <div class="demo-controls">
+        <button id="fade-in" class="btn-outline-sm">Fade In</button>
+        <button id="fade-out" class="btn-outline-sm">Fade Out</button>
+        <button id="slide-in" class="btn-outline-sm">Slide In</button>
+        <button id="pulse" class="btn-outline-sm">Pulse</button>
+        <button id="shake" class="btn-outline-sm">Shake</button>
+        <button id="reset" class="btn-outline-sm">Reset</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-4">
+    <h2>Animation Sequences</h2>
+    <div class="demo-wrapper">
+      <div class="sequence-demo">
+        <div class="sequence-item" id="seq-item-1">1</div>
+        <div class="sequence-item" id="seq-item-2">2</div>
+        <div class="sequence-item" id="seq-item-3">3</div>
+        <div class="sequence-item" id="seq-item-4">4</div>
+        <div class="sequence-item" id="seq-item-5">5</div>
+      </div>
+      <div class="demo-controls">
+        <button id="play-sequence" class="btn-outline-sm">Play Sequence</button>
+        <button id="play-staggered" class="btn-outline-sm">Play Staggered</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-4">
+    <h2>Custom Animations</h2>
+    <div class="demo-wrapper">
+      <div id="custom-demo" class="demo-text">Custom Animation</div>
+      <div class="demo-controls">
+        <button id="typewriter" class="btn-outline-sm">Typewriter</button>
+        <button id="letter-spacing" class="btn-outline-sm">Letter Spacing</button>
+        <button id="luxury-reveal" class="btn-outline-sm">Luxury Reveal</button>
+        <button id="custom-reset" class="btn-outline-sm">Reset</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-4">
+    <h2>Scroll-triggered Animations</h2>
+    <div class="scroll-section">
+      <div class="demo-box" data-animation="fadeIn" data-animation-delay="100">Fade In</div>
+    </div>
+    <div class="scroll-section">
+      <div class="demo-box" data-animation="slideInUp" data-animation-delay="100">Slide Up</div>
+    </div>
+    <div class="scroll-section">
+      <div class="demo-text" data-animation="luxuryReveal" data-animation-delay="100">Luxury Reveal</div>
+    </div>
+  </section>
+
+  <section class="my-4">
+    <h2>Static CSS Animations</h2>
+    <div class="demo-wrapper">
+      <button id="generate-css" class="btn">Generate Static CSS</button>
+      <div id="css-output" class="code-block" style="display:none;">
+        .ani-fadeIn { ... }<br>
+        .ani-slideInUp { ... }
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="container py-4 mt-4">
+  <hr>
+  <div class="text-center my-3">
+    <p>&copy; 2025 Micro Animations. Powered by Typography-First principles.</p>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+      <svg id="theme-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21 12.79A9 9 0 0112.21 3a7 7 0 109.79 9.79z" fill="currentColor"/>
+      </svg>
+    </button>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="../js/theme-toggle.js" defer></script>
+<script src="../js/font-switcher.js" defer></script>
+<script src="../js/micro-animations.js" defer></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const basicDemo = document.getElementById('basic-demo');
+    const customDemo = document.getElementById('custom-demo');
+
+    // --- Basic animations demo ---
+    document.getElementById('fade-in').addEventListener('click', () => {
+      basicDemo.style.opacity = 0;
+      animationFramework.presets.fadeIn(basicDemo, { duration: 800 });
+    });
+
+    document.getElementById('fade-out').addEventListener('click', () => {
+      basicDemo.style.opacity = 1;
+      animationFramework.presets.fadeOut(basicDemo, { duration: 800 });
+    });
+
+    document.getElementById('slide-in').addEventListener('click', () => {
+      basicDemo.style.opacity = 0;
+      basicDemo.style.transform = 'translateX(0)';
+      animationFramework.presets.slideInRight(basicDemo, { duration: 800 });
+    });
+
+    document.getElementById('pulse').addEventListener('click', () => {
+      animationFramework.presets.pulse(basicDemo, { duration: 800 });
+    });
+
+    document.getElementById('shake').addEventListener('click', () => {
+      animationFramework.presets.shake(basicDemo, { duration: 500 });
+    });
+
+    document.getElementById('reset').addEventListener('click', () => {
+      basicDemo.style.opacity = 1;
+      basicDemo.style.transform = 'translateX(0) scale(1)';
+    });
+
+    // --- Sequence and Stagger demos ---
+    const sequenceItems = [
+      document.getElementById('seq-item-1'),
+      document.getElementById('seq-item-2'),
+      document.getElementById('seq-item-3'),
+      document.getElementById('seq-item-4'),
+      document.getElementById('seq-item-5')
+    ];
+
+    const resetSequence = () => {
+      sequenceItems.forEach(item => {
+        item.style.opacity = 0;
+      });
+    };
+
+    document.getElementById('play-sequence').addEventListener('click', () => {
+      resetSequence();
+      const sequence = animationFramework.createSequence();
+      sequenceItems.forEach(item => {
+        sequence.add(animationFramework.presets.fadeIn(item, { duration: 400 }), 200);
+      });
+      sequence.play();
+    });
+
+    document.getElementById('play-staggered').addEventListener('click', () => {
+      resetSequence();
+      animationFramework.stagger(sequenceItems, 'fadeIn', {
+        duration: 500,
+        staggerDelay: 150
+      }).play();
+    });
+
+    // --- Custom animations demo ---
+    document.getElementById('typewriter').addEventListener('click', () => {
+      customDemo.textContent = 'Custom Animation';
+      animationFramework.presets.typewriter(customDemo, { duration: 1500, easing: 'linear', fillMode: 'forwards' });
+    });
+
+    document.getElementById('letter-spacing').addEventListener('click', () => {
+      customDemo.textContent = 'Letter Spacing';
+      customDemo.style.opacity = 1;
+      animationFramework.presets.letterSpacing(customDemo, { duration: 1000, easing: 'smooth' });
+    });
+
+    document.getElementById('luxury-reveal').addEventListener('click', () => {
+      customDemo.textContent = 'Luxury Reveal';
+      customDemo.style.opacity = 0;
+      animationFramework.presets.luxuryReveal(customDemo, { duration: 1200, easing: 'elegant' });
+    });
+
+    document.getElementById('custom-reset').addEventListener('click', () => {
+      customDemo.textContent = 'Custom Animation';
+      customDemo.style.opacity = 1;
+      customDemo.style.letterSpacing = '';
+    });
+
+    // --- Static CSS Generator ---
+    document.getElementById('generate-css').addEventListener('click', () => {
+      const output = document.getElementById('css-output');
+      output.style.display = 'block';
+    });
+  });
+</script>
+
+</body>
+</html>

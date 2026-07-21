@@ -1,0 +1,47 @@
+{
+  "$schema": "https://raw.githubusercontent.com/stokewell/syntax/main/consumer/schema/syntax-project.schema.json",
+  "schemaVersion": 1,
+  "syntaxVersion": "1.2.0",
+  "project": {
+    "name": "Setup Proof",
+    "slug": "setup-proof",
+    "description": "A generated portfolio proving the complete Consumer Mode setup transaction.",
+    "author": "Syntax Test Studio",
+    "canonicalUrl": "https://zentips.com/setup-proof/",
+    "repositoryUrl": null,
+    "primaryAction": {
+      "label": "Explore the work",
+      "destination": "#work"
+    },
+    "secondaryAction": null
+  },
+  "recipe": {
+    "id": "portfolio",
+    "version": 1,
+    "data": {
+      "role": "Consumer Mode verification",
+      "intro": "This generated site exercises every initial optional feature without relying on framework demo code.",
+      "projects": [
+        {
+          "title": "First Proof",
+          "status": "Generated project",
+          "description": "A static project card with generated artwork and a safe destination.",
+          "url": "https://zentips.com/",
+          "tags": ["Setup", "Testing"]
+        },
+        {
+          "title": "Second Proof",
+          "status": "Responsive project",
+          "description": "A second project proving multi-card layout and responsive-image enhancement.",
+          "url": "https://prompting.ai/blitz/",
+          "tags": ["Accessibility", "Responsive"]
+        }
+      ]
+    }
+  },
+  "visualDirection": "product",
+  "accentColor": "#5B4BE0",
+  "features": ["theme", "mobile-navigation", "responsive-image", "dialog"],
+  "mode": "prototype",
+  "deployment": "github-pages-root"
+}

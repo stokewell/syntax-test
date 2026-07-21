@@ -1,0 +1,7 @@
+node_modules/
+dist/
+playwright-report/
+test-results/
+consumer/previews/
+consumer/setup-smoke/
+.DS_Store

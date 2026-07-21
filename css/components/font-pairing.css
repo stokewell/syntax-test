@@ -1,0 +1,106 @@
+/* ============================================
+   Font pairing options Styling 
+   ============================================ */
+
+#font-pairing-wrapper {
+  max-width: 300px;
+  margin-left: auto;
+}
+
+@media (max-width: 600px) {
+  #font-pairing-wrapper {
+    max-width: 100%;
+    margin-left: 0;
+  }
+}
+
+/* Ensure header layout does not shift */
+header.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+/* Font switcher toolbar floating to top-right on desktop */
+.toolbar {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  z-index: 10; /* Ensure it stays above animated content */
+}
+
+/* Responsive dropdown panel */
+#font-pairing-preview {
+  background: var(--color-bg);
+  border: 1px solid var(--color-subtle);
+  border-radius: 4px;
+  padding: 0.75rem;
+  min-width: 250px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  text-align: left;
+}
+
+#font-pairing-preview label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+#font-pairing-select {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--color-subtle);
+}
+
+/* Button style match */
+.btn-outline-sm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.85rem;
+  background-color: transparent;
+  box-shadow: inset 0 0 0 1.5px var(--color-primary);
+  color: var(--color-primary);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.btn-outline-sm:hover, .btn-outline-sm:focus {
+  background-color: rgba(var(--color-primary-rgb), 0.04);
+  box-shadow: inset 0 0 0 1.5px var(--color-primary), 
+              0 2px 4px rgba(var(--color-primary-rgb), 0.12);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.btn-outline-sm:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 0 0 1.5px var(--color-primary);
+}
+
+/* Mobile stacking behavior */
+@media (max-width: 768px) {
+  .toolbar {
+    position: static;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  #font-pairing-preview {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}

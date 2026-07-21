@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animation Framework - Demo</title>
+  
+  <link rel="stylesheet" href="../css/style.css">
+  
+  <!-- Google Fonts - only preload default fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link id="dynamic-fonts-live" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap">
+  
+  <style>
+    /* Demo-specific styles */
+    .demo-wrapper {
+      border: 1px solid var(--color-subtle);
+      border-radius: 8px;
+      padding: var(--space-3);
+      margin-bottom: var(--space-3);
+    }
+    
+    .demo-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-top: var(--space-2);
+    }
+    
+    .demo-box {
+      width: 100px;
+      height: 100px;
+      background-color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      margin: var(--space-3) auto;
+      border-radius: 4px;
+    }
+    
+    .demo-text {
+      font-size: var(--font-size-lg);
+      text-align: center;
+      margin: var(--space-4) 0;
+    }
+    
+    .scroll-section {
+      height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      border-top: 1px solid var(--color-subtle);
+      margin-top: var(--space-5);
+    }
+    
+    .sequence-demo {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-2);
+    }
+    
+    .sequence-item {
+      width: 50px;
+      height: 50px;
+      background-color: var(--color-primary);
+      border-radius: 4px;
+      opacity: 0;
+    }
+    
+    .code-block {
+      background-color: #f5f5f5;
+      padding: var(--space-3);
+      border-radius: 4px;
+      margin: var(--space-3) 0;
+      overflow-x: auto;
+      font-family: monospace;
+      white-space: pre;
+      font-size: 0.9rem;
+      border: 1px solid var(--color-subtle);
+    }
+    
+    [data-theme="dark"] .code-block {
+      background-color: #2a2a2a;
+    }
+  </style>
+</head>
+<body>
+  <header class="container py-4">
+    <nav class="toolbar" aria-label="Navigation">
+      <a href="index.html" class="btn-outline-sm">Back to Demo</a>
+      <a href="components-final.html" class="btn-outline-sm">View Components (FINAL) →</a>
+    </nav>
+  
+    <h1 class="site-title">Animation Framework Demo</h1>
+    <p class="text-center">A lightweight, versatile animation system built with vanilla JavaScript and CSS.</p>
+  </header>
+  
+  <main class="container">
+    <section class="my-4">
+      <h2>Basic Animation</h2>
+      <div class="demo-wrapper">
+        <div id="basic-demo" class="demo-box">Box</div>
+        <div class="demo-controls">
+          <button id="fade-in" class="btn-outline-sm">Fade In</button>
+          <button id="fade-out" class="btn-outline-sm">Fade Out</button>
+          <button id="slide-in" class="btn-outline-sm">Slide In</button>
+          <button id="pulse" class="btn-outline-sm">Pulse</button>
+          <button id="shake" class="btn-outline-sm">Shake</button>
+          <button id="reset" class="btn-outline-sm">Reset</button>
+        </div>
+        
+        <div class="code-block">// Create and play an animation
+const fadeIn = animationFramework.presets.fadeIn(element, {
+  duration: 500,
+  easing: 'smooth'
+});</div>
+      </div>
+    </section>
+    
+    <section class="my-4">
+      <h2>Animation Sequences</h2>
+      <div class="demo-wrapper">
+        <div class="sequence-demo">
+          <div class="sequence-item" id="seq-item-1">1</div>
+          <div class="sequence-item" id="seq-item-2">2</div>
+          <div class="sequence-item" id="seq-item-3">3</div>
+          <div class="sequence-item" id="seq-item-4">4</div>
+          <div class="sequence-item" id="seq-item-5">5</div>
+        </div>
+        <div class="demo-controls">
+          <button id="play-sequence" class="btn-outline-sm">Play Sequence</button>
+          <button id="play-staggered" class="btn-outline-sm">Play Staggered</button>
+        </div>
+        
+        <div class="code-block">// Create a sequence of animations
+const sequence = animationFramework.createSequence()
+  .add(animationFramework.presets.fadeIn(element1))
+  .delay(200) // Add a delay
+  .add(animationFramework.presets.fadeIn(element2))
+  .play();</div>
+      </div>
+    </section>
+    
+    <section class="my-4">
+      <h2>Custom Animations</h2>
+      <div class="demo-wrapper">
+        <div id="custom-demo" class="demo-text">Custom Animation</div>
+        <div class="demo-controls">
+          <button id="typewriter" class="btn-outline-sm">Typewriter</button>
+          <button id="letter-spacing" class="btn-outline-sm">Letter Spacing</button>
+          <button id="luxury-reveal" class="btn-outline-sm">Luxury Reveal</button>
+          <button id="custom-reset" class="btn-outline-sm">Reset</button>
+        </div>
+        
+        <div class="code-block">// Create a custom animation
+const customAnimation = animationFramework.create({
+  element: document.querySelector('#my-element'),
+  keyframes: [
+    { transform: 'scale(1) rotate(0deg)' },
+    { transform: 'scale(1.2) rotate(10deg)' },
+    { transform: 'scale(1) rotate(0deg)' }
+  ],
+  duration: 500,
+  easing: 'elastic'
+});</div>
+      </div>
+    </section>
+    
+    <section class="my-4">
+      <h2>Scroll Animations</h2>
+      <p class="text-center">Scroll down to see animations trigger when elements enter the viewport.</p>
+      
+      <div class="scroll-section">
+        <div class="demo-box" data-animation="fadeIn" data-animation-delay="100">Fade In</div>
+        <div class="code-block"><!-- HTML-only animation with data attributes -->
+<div data-animation="fadeIn" 
+     data-animation-delay="200"
+     data-animation-duration="800"
+     data-animation-easing="smooth">
+  I'll animate when scrolled into view
+</div></div>
+      </div>
+      
+      <div class="scroll-section">
+        <div class="demo-box" data-animation="slideInUp" data-animation-delay="100">Slide Up</div>
+      </div>
+      
+      <div class="scroll-section">
+        <div class="demo-box" data-animation="zoomIn" data-animation-delay="100">Zoom In</div>
+      </div>
+      
+      <div class="scroll-section">
+        <div class="demo-text" data-animation="luxuryReveal" data-animation-delay="100">Luxury Reveal Animation</div>
+      </div>
+    </section>
+    
+    <section class="my-4">
+      <h2>Static CSS Animations</h2>
+      <div class="demo-wrapper">
+        <button id="generate-css" class="btn">Generate CSS-only Animations</button>
+        <div id="css-output" class="my-3" style="display: none;">
+          <p>CSS generated! Example classes:</p>
+          <div class="code-block">.ani-fadeIn { ... }
+.ani-slideInUp { ... }
+.ani-pulse { ... }</div>
+          <p>Usage example:</p>
+          <div class="code-block">&lt;div class="ani-fadeIn ani-duration-slow"&gt;
+  This animates using pure CSS
+&lt;/div&gt;</div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <footer class="container py-4">
+    <hr>
+    <div class="text-center my-3">
+      <p>&copy; 2025 Typography-First Template. Built with semantic HTML and custom CSS.</p>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+        <svg id="theme-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 12.79A9 9 0 0112.21 3a7 7 0 109.79 9.79z" fill="currentColor"/>
+        </svg>
+      </button>
+    </div>
+  </footer>
+  
+  <!-- JavaScript -->
+  <script src="../js/theme-toggle.js" defer></script>
+  <script src="../js/font-switcher.js" defer></script>
+  <script src="../js/micro-animations.js" defer></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const basicDemo = document.getElementById('basic-demo');
+      const customDemo = document.getElementById('custom-demo');
+      
+      // Basic animations demo
+      document.getElementById('fade-in').addEventListener('click', () => {
+        // Reset element
+        basicDemo.style.opacity = 0;
+        // Apply animation
+        animationFramework.presets.fadeIn(basicDemo, { duration: 800 });
+      });
+      
+      document.getElementById('fade-out').addEventListener('click', () => {
+        // Reset element
+        basicDemo.style.opacity = 1;
+        // Apply animation
+        animationFramework.presets.fadeOut(basicDemo, { duration: 800 });
+      });
+      
+      document.getElementById('slide-in').addEventListener('click', () => {
+        // Reset element
+        basicDemo.style.opacity = 0;
+        basicDemo.style.transform = 'translateX(0)';
+        // Apply animation
+        animationFramework.presets.slideInRight(basicDemo, { duration: 800 });
+      });
+      
+      document.getElementById('pulse').addEventListener('click', () => {
+        animationFramework.presets.pulse(basicDemo, { duration: 800 });
+      });
+      
+      document.getElementById('shake').addEventListener('click', () => {
+        animationFramework.presets.shake(basicDemo, { duration: 500 });
+      });
+      
+      document.getElementById('reset').addEventListener('click', () => {
+        basicDemo.style.opacity = 1;
+        basicDemo.style.transform = 'translateX(0) scale(1)';
+      });
+      
+      // Sequence demo
+      const sequenceItems = [
+        document.getElementById('seq-item-1'),
+        document.getElementById('seq-item-2'),
+        document.getElementById('seq-item-3'),
+        document.getElementById('seq-item-4'),
+        document.getElementById('seq-item-5')
+      ];
+      
+      // Reset sequence items
+      const resetSequence = () => {
+        sequenceItems.forEach(item => {
+          item.style.opacity = 0;
+        });
+      };
+      
+      document.getElementById('play-sequence').addEventListener('click', () => {
+        resetSequence();
+        
+        // Create and play an animation sequence
+        const sequence = animationFramework.createSequence();
+        
+        sequenceItems.forEach(item => {
+          sequence.add(animationFramework.presets.fadeIn(item, { duration: 300 }), 200);
+        });
+        
+        sequence.play();
+      });
+      
+      document.getElementById('play-staggered').addEventListener('click', () => {
+        resetSequence();
+        
+        // Create and play a staggered animation group
+        const staggered = animationFramework.stagger(sequenceItems, 'fadeIn', { 
+          duration: 500,
+          staggerDelay: 100
+        });
+        
+        staggered.play();
+      });
+      
+      // Custom animations demo
+      document.getElementById('typewriter').addEventListener('click', () => {
+        customDemo.textContent = 'Custom Animation';
+        
+        animationFramework.presets.typewriter(customDemo, {
+          duration: 1500,
+          easing: 'linear',
+          fillMode: 'forwards'
+        });
+      });
+      
+      document.getElementById('letter-spacing').addEventListener('click', () => {
+        customDemo.textContent = 'Letter Spacing';
+        customDemo.style.opacity = 1;
+        
+        animationFramework.presets.letterSpacing(customDemo, {
+          duration: 1000,
+          easing: 'smooth'
+        });
+      });
+      
+      document.getElementById('luxury-reveal').addEventListener('click', () => {
+        customDemo.textContent = 'Luxury Reveal';
+        customDemo.style.opacity = 0;
+        
+        animationFramework.presets.luxuryReveal(customDemo, {
+          duration: 1200,
+          easing: 'elegant'
+        });
+      });
+      
+      document.getElementById('custom-reset').addEventListener('click', () => {
+        customDemo.textContent = 'Custom Animation';
+        customDemo.style.opacity = 1;
+        customDemo.style.letterSpacing = '';
+      });
+      
+      // CSS Generation
+      document.getElementById('generate-css').addEventListener('click', () => {
+        // Generate CSS and show information
+        const output = document.getElementById('css-output');
+        output.style.display = 'block';
+        
+        // Demonstration only - in a real implementation you would
+        // actually add the CSS to the page with animationFramework.injectCSS()
+        // or download the stylesheet
+      });
+    });
+  </script>
+</body>
+</html>

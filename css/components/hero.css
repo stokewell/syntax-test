@@ -1,0 +1,155 @@
+    .hero-section {
+      text-align: center;
+      padding: 5rem 0 4rem;
+    }
+    
+    .hero-title {
+      font-size: clamp(2.5rem, 6vw, 3.75rem);
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+    
+    .gradient-text {
+      display: block;
+      background: linear-gradient(90deg, var(--color-primary), var(--color-success));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-fill-color: transparent;
+      /* Fix for descender clipping */
+      line-height: 1.3; /* Increased line height to accommodate descenders */
+      padding-bottom: 0.15em; /* Extra padding at bottom */
+      transition: opacity var(--transition-medium) var(--ease-in-out);
+    }
+    
+    /* Subtle animation effect on scroll */
+    .header.shadow .gradient-text {
+      opacity: 0.85;
+    }
+    
+    .hero-subtitle {
+      font-size: clamp(1.5rem, 3.5vw, 2rem);
+      font-weight: 400;
+      display: block;
+      margin-top: 0.5rem;
+      color: var(--color-text);
+      opacity: 0.85;
+    }
+    
+    .hero-description {
+      max-width: 800px;
+      margin: 2rem auto;
+      font-size: clamp(1.1rem, 2.5vw, 1.25rem);
+      line-height: 1.6;
+      color: var(--color-text-secondary, var(--color-text));
+      opacity: 0.9;
+    }
+    
+    .hero-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    
+    @media (min-width: 640px) {
+      .hero-actions {
+        flex-direction: row;
+        justify-content: center;
+      }
+    }
+    
+    .tip-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: rgba(var(--color-success-rgb, 0, 200, 0), 0.1);
+      color: var(--color-success, green);
+      padding: 0.75rem 1.25rem;
+      border-radius: 12px; /* Reduced radius for visual harmony */
+      font-size: 0.9rem;
+      max-width: 600px;
+      box-shadow: var(--shadow-xs);
+    }
+    
+    /* More square on desktop for angular aesthetic */
+    @media (min-width: 768px) {
+      .tip-badge {
+        border-radius: 8px;
+      }
+    }
+    
+    .tip-icon {
+      flex-shrink: 0;
+    }
+    
+    /* Typography system with improved modular scale */
+    h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+    }
+    
+    h2 {
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+    
+    h3 {
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      font-weight: 600;
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.75rem;
+    }
+    
+    h4 {
+      font-size: clamp(1.125rem, 2vw, 1.35rem);
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 0.75rem;
+    }
+    
+    p.lead {
+      font-size: clamp(1.125rem, 2.5vw, 1.35rem);
+      line-height: 1.6;
+      color: var(--color-text-secondary, var(--color-text));
+      opacity: 0.9;
+      margin-bottom: 1.5rem;
+    }
+    
+    /* Section styling */
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+    }
+    
+    .section-subtitle {
+      font-size: clamp(1.1rem, 2vw, 1.2rem);
+      color: var(--color-text-secondary, var(--color-text));
+      opacity: 0.9;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+    
+    /* Feature section styling */

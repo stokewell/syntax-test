@@ -1,0 +1,32 @@
+/* Section primitives */
+.section {
+  padding-block: clamp(4rem, 10vw, 8rem);
+}
+
+.section-muted {
+  border-block: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.section-header {
+  max-width: 48rem;
+  margin-bottom: var(--space-5);
+}
+
+.section-header > :first-child {
+  margin-top: 0;
+}
+
+.section-header > :last-child {
+  margin-bottom: 0;
+}
+
+.section-compact {
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+}
+
+.section-full {
+  min-height: 100svh;
+  display: grid;
+  align-items: center;
+}

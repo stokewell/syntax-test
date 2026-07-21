@@ -1,0 +1,50 @@
+/* Twelve-column grid and container primitives */
+.container {
+  width: min(100% - 2 * var(--gutter), 75rem);
+  margin-inline: auto;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 1.5rem);
+}
+
+.grid-col-full,
+.grid-col-8,
+.grid-col-6,
+.grid-col-4,
+.grid-col-3 {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.grid-auto-fit {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: var(--space-3);
+}
+
+.grid-auto-fill {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  gap: var(--space-3);
+}
+
+@media (min-width: 768px) {
+  .grid-col-8 {
+    grid-column: span 8;
+  }
+
+  .grid-col-6 {
+    grid-column: span 6;
+  }
+
+  .grid-col-4 {
+    grid-column: span 4;
+  }
+
+  .grid-col-3 {
+    grid-column: span 3;
+  }
+}

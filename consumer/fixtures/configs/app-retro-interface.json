@@ -1,0 +1,49 @@
+{
+  "$schema": "https://raw.githubusercontent.com/stokewell/syntax/main/consumer/schema/syntax-project.schema.json",
+  "schemaVersion": 1,
+  "syntaxVersion": "1.2.0",
+  "project": {
+    "name": "Field Console",
+    "slug": "field-console",
+    "description": "A compact operations dashboard for coordinating active projects, risks, and handoffs.",
+    "author": "Example Studio",
+    "canonicalUrl": "https://example.com/field-console/",
+    "repositoryUrl": "https://github.com/example/field-console",
+    "primaryAction": {
+      "label": "Create task",
+      "destination": "#tasks-title"
+    },
+    "secondaryAction": {
+      "label": "View activity",
+      "destination": "#overview-title"
+    }
+  },
+  "recipe": {
+    "id": "app",
+    "version": 1,
+    "data": {
+      "workspaceTitle": "Operations overview",
+      "navigation": [
+        { "label": "Overview", "destination": "#overview-title" },
+        { "label": "Tasks", "destination": "#tasks-title" },
+        { "label": "Queue", "destination": "#empty-title" }
+      ],
+      "stats": [
+        { "label": "Open tasks", "value": "18", "detail": "Four due this week" },
+        { "label": "Active projects", "value": "5", "detail": "Two awaiting review" },
+        { "label": "Blocked", "value": "2", "detail": "Both need owner decisions" }
+      ],
+      "tasks": [
+        { "title": "Review onboarding prototype", "status": "In review", "owner": "Mara" },
+        { "title": "Confirm launch checklist", "status": "Ready", "owner": "Devon" },
+        { "title": "Resolve export edge case", "status": "Blocked", "owner": "Kai" }
+      ],
+      "emptyState": "No unassigned work is waiting in the intake queue."
+    }
+  },
+  "visualDirection": "retro-interface",
+  "accentColor": "#1D7A56",
+  "features": ["theme"],
+  "mode": "prototype",
+  "deployment": "github-pages-actions"
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://raw.githubusercontent.com/stokewell/syntax/main/consumer/schema/syntax-project.schema.json",
+  "schemaVersion": 1,
+  "syntaxVersion": "1.2.0",
+  "project": {
+    "name": "Foundation Fixture",
+    "slug": "foundation-fixture",
+    "description": "A deterministic Consumer Mode fixture.",
+    "author": "Syntax",
+    "canonicalUrl": null,
+    "repositoryUrl": null,
+    "primaryAction": {
+      "label": "Explore",
+      "destination": "#main"
+    },
+    "secondaryAction": null
+  },
+  "recipe": {
+    "id": "blank",
+    "version": 1
+  },
+  "visualDirection": "editorial",
+  "accentColor": "#067474",
+  "features": ["theme"],
+  "mode": "prototype",
+  "deployment": "none"
+}

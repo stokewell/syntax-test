@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/stokewell/syntax/main/consumer/schema/syntax-project.schema.json",
+  "title": "Syntax Consumer Mode project manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "syntaxVersion",
+    "project",
+    "recipe",
+    "visualDirection",
+    "accentColor",
+    "features",
+    "mode",
+    "deployment"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://raw.githubusercontent.com/stokewell/syntax/main/consumer/schema/syntax-project.schema.json"
+    },
+    "schemaVersion": { "const": 1 },
+    "syntaxVersion": { "const": "1.2.0" },
+    "project": { "$ref": "#/$defs/project" },
+    "recipe": { "$ref": "#/$defs/recipe" },
+    "visualDirection": {
+      "enum": [
+        "editorial",
+        "product",
+        "technical",
+        "playful",
+        "minimal",
+        "cinematic",
+        "retro-interface"
+      ]
+    },
+    "accentColor": {
+      "type": "string",
+      "pattern": "^#[0-9A-Fa-f]{6}$"
+    },
+    "features": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "theme",
+          "font-chooser",
+          "mobile-navigation",
+          "dialog",
+          "tabs",
+          "accordion",
+          "responsive-image",
+          "custom-card",
+          "motion",
+          "forms"
+        ]
+      }
+    },
+    "mode": { "enum": ["prototype", "ship"] },
+    "deployment": {
+      "enum": ["none", "github-pages-root", "github-pages-actions"]
+    },
+    "generated": { "$ref": "#/$defs/generated" }
+  },
+  "$defs": {
+    "httpUrlOrNull": {
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https?://"
+        }
+      ]
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "destination"],
+      "properties": {
+        "label": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "destination": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048,
+          "not": { "pattern": "^[Jj][Aa][Vv][Aa][Ss][Cc][Rr][Ii][Pp][Tt]:" }
+        }
+      }
+    },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "slug",
+        "description",
+        "author",
+        "canonicalUrl",
+        "repositoryUrl",
+        "primaryAction",
+        "secondaryAction"
+      ],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "slug": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "description": { "type": "string", "minLength": 1, "maxLength": 320 },
+        "author": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "canonicalUrl": { "$ref": "#/$defs/httpUrlOrNull" },
+        "repositoryUrl": { "$ref": "#/$defs/httpUrlOrNull" },
+        "primaryAction": { "$ref": "#/$defs/action" },
+        "secondaryAction": {
+          "anyOf": [{ "type": "null" }, { "$ref": "#/$defs/action" }]
+        }
+      }
+    },
+    "recipe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": { "enum": ["blank", "portfolio", "product", "app"] },
+        "version": { "type": "integer", "minimum": 1 },
+        "data": {
+          "type": "object",
+          "maxProperties": 100,
+          "description": "Recipe-owned JSON data validated by the selected recipe contract."
+        }
+      }
+    },
+    "generated": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["generatorVersion", "configurationHash", "files"],
+      "properties": {
+        "generatorVersion": { "type": "string", "minLength": 1, "maxLength": 40 },
+        "configurationHash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "files": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "pattern": "^(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+/* ============================================
+   Accordion Component
+   ============================================ */
+
+/* <details> tag styled to look like an expandable section */
+details {
+  border: 1px solid var(--color-subtle);
+  border-radius: 4px;
+  margin-bottom: var(--space-2);
+}
+
+/* <summary> tag as the clickable heading of the accordion */
+summary {
+  padding: var(--space-2) var(--space-3);
+  cursor: pointer;
+  font-weight: 500;
+  position: relative;
+}
+
+/* When the details element is open, style the summary's bottom border */
+details[open] summary {
+  border-bottom: 1px solid var(--color-subtle);
+}
+
+/* Inner content of the accordion */
+details > div {
+  padding: var(--space-3);
+}
+
+

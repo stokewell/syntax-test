@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en" data-theme-preference="system">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Syntax — Typography-first website starter</title>
+    <meta
+      name="description"
+      content="Syntax is a lightweight, typography-first website starter and design system for handcrafted content sites."
+    />
+    <meta name="author" content="Stokewell" />
+    <link rel="canonical" href="https://stokewell.github.io/syntax/demo/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://stokewell.github.io/syntax/demo/" />
+    <meta property="og:title" content="Syntax — Typography-first website starter" />
+    <meta
+      property="og:description"
+      content="A lightweight website starter with expressive typography, practical components, themes, and accessible interactions."
+    />
+    <meta property="og:image" content="https://stokewell.github.io/syntax/demo/og-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Syntax — Typography-first website starter" />
+    <meta
+      name="twitter:description"
+      content="A lightweight website starter with expressive typography and accessible components."
+    />
+    <meta name="twitter:image" content="https://stokewell.github.io/syntax/demo/og-image.jpg" />
+
+    <link rel="icon" href="../favicon.ico" />
+    <link rel="manifest" href="../site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      id="dynamic-fonts-live"
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    />
+
+    <script>
+      (() => {
+        const saved = localStorage.getItem('syntax-theme-preference') || 'system';
+        const resolved =
+          saved === 'system'
+            ? matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light'
+            : saved;
+        document.documentElement.dataset.themePreference = saved;
+        document.documentElement.dataset.theme = resolved;
+      })();
+    </script>
+
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/layouts.css" />
+    <link rel="stylesheet" href="./demo.css" />
+  </head>
+  <body id="top">
+    <a class="skip-to-content" href="#main-content">Skip to content</a>
+
+    <header class="header" id="main-header">
+      <div class="container header-container">
+        <a class="logo" href="#top" aria-label="Syntax home">
+          <span class="logo-text">Syn<span class="logo-accent">tax</span></span>
+        </a>
+
+        <nav class="main-nav" aria-label="Primary navigation">
+          <ul class="nav-list">
+            <li class="nav-item"><a class="nav-link active" href="#overview">Overview</a></li>
+            <li class="nav-item nav-dropdown">
+              <a class="nav-link dropdown-parent" href="#components">Components</a>
+              <button
+                class="dropdown-toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="components-menu"
+              >
+                <span class="sr-only">Open components menu</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+                  <path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" />
+                </svg>
+              </button>
+              <div class="dropdown-content" id="components-menu">
+                <ul class="dropdown-menu-list">
+                  <li><a class="dropdown-menu-link" href="#components">UI components</a></li>
+                  <li><a class="dropdown-menu-link" href="#typography">Typography</a></li>
+                  <li><a class="dropdown-menu-link" href="#layouts">Layouts</a></li>
+                  <li><a class="dropdown-menu-link" href="#motion">Motion</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../lab/">Component Lab</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/stokewell/syntax">GitHub</a>
+            </li>
+          </ul>
+
+          <button
+            class="menu-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="mobile-navigation"
+            aria-label="Open navigation"
+          >
+            <span></span><span></span><span></span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="mobile-nav" id="mobile-navigation" aria-hidden="true">
+        <ul class="mobile-nav-list">
+          <li class="mobile-nav-item"><a class="mobile-nav-link" href="#overview">Overview</a></li>
+          <li class="mobile-nav-item mobile-nav-dropdown">
+            <div class="mobile-nav-row">
+              <a class="mobile-nav-link" href="#components">Components</a>
+              <button
+                class="mobile-dropdown-toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="mobile-components-menu"
+              >
+                <span class="sr-only">Show component links</span>
+              </button>
+            </div>
+            <ul class="mobile-submenu" id="mobile-components-menu" hidden>
+              <li><a class="mobile-submenu-link" href="#typography">Typography</a></li>
+              <li><a class="mobile-submenu-link" href="#layouts">Layouts</a></li>
+              <li><a class="mobile-submenu-link" href="#motion">Motion</a></li>
+            </ul>
+          </li>
+          <li class="mobile-nav-item">
+            <a class="mobile-nav-link" href="../lab/">Component Lab</a>
+          </li>
+          <li class="mobile-nav-item">
+            <a class="mobile-nav-link" href="https://github.com/stokewell/syntax">GitHub</a>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <section class="hero-section" id="overview" aria-labelledby="hero-title">
+        <div class="container">
+          <p class="eyebrow">Typography-first website starter</p>
+          <h1 class="hero-title" id="hero-title"><span class="gradient-text">Syntax</span></h1>
+          <p class="hero-description">
+            A lightweight design system for handcrafted content sites: expressive type, practical
+            layout primitives, accessible components, and zero runtime dependencies.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-lg" href="https://github.com/stokewell/syntax/generate"
+              >Use this template</a
+            >
+            <a class="btn-outline btn-lg" href="https://github.com/stokewell/syntax">View source</a>
+          </div>
+          <ul class="hero-proof" aria-label="Project highlights">
+            <li>Semantic HTML</li>
+            <li>Design tokens</li>
+            <li>Light, dark, and system themes</li>
+            <li>Keyboard-tested interactions</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="principles-title">
+        <div class="container">
+          <div class="section-header">
+            <p class="eyebrow">What belongs in core</p>
+            <h2 id="principles-title">A starter, not a kitchen sink</h2>
+            <p>Syntax keeps the dependable foundation small. Experimental tools remain optional.</p>
+          </div>
+          <div class="features-grid">
+            <article class="feature-card">
+              <h3>Typography</h3>
+              <p>Fluid sizing, readable line lengths, resilient fallbacks, and curated pairings.</p>
+            </article>
+            <article class="feature-card">
+              <h3>Layout</h3>
+              <p>Containers, grids, spacing utilities, and common editorial structures.</p>
+            </article>
+            <article class="feature-card">
+              <h3>Components</h3>
+              <p>
+                Buttons, cards, forms, navigation, dialogs, tabs, and alerts with accessible states.
+              </p>
+            </article>
+            <article class="feature-card">
+              <h3>Theming</h3>
+              <p>Semantic color tokens with explicit system, light, and dark preferences.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-muted" id="components" aria-labelledby="components-title">
+        <div class="container">
+          <div class="section-header">
+            <p class="eyebrow">Component showcase</p>
+            <h2 id="components-title">Small pieces with clear behavior</h2>
+          </div>
+
+          <div class="demo-tabs" data-tabs>
+            <div class="demo-tabs-nav" role="tablist" aria-label="Syntax demonstrations">
+              <button
+                id="tab-ui"
+                role="tab"
+                aria-selected="true"
+                aria-controls="panel-ui"
+                tabindex="0"
+              >
+                UI
+              </button>
+              <button
+                id="tab-typography"
+                role="tab"
+                aria-selected="false"
+                aria-controls="panel-typography"
+                tabindex="-1"
+              >
+                Typography
+              </button>
+              <button
+                id="tab-layouts"
+                role="tab"
+                aria-selected="false"
+                aria-controls="panel-layouts"
+                tabindex="-1"
+              >
+                Layouts
+              </button>
+              <button
+                id="tab-motion"
+                role="tab"
+                aria-selected="false"
+                aria-controls="panel-motion"
+                tabindex="-1"
+              >
+                Motion
+              </button>
+            </div>
+
+            <section id="panel-ui" role="tabpanel" aria-labelledby="tab-ui">
+              <div class="showcase-grid">
+                <article class="showcase-card">
+                  <h3>Buttons</h3>
+                  <div class="cluster">
+                    <button class="btn" type="button">Primary</button>
+                    <button class="btn-secondary" type="button">Secondary</button>
+                    <button class="btn-outline" type="button">Outline</button>
+                  </div>
+                </article>
+
+                <article class="showcase-card">
+                  <h3>Toggle switch</h3>
+                  <toggle-switch label="Email summaries" checked></toggle-switch>
+                </article>
+
+                <article class="showcase-card">
+                  <h3>Dialog</h3>
+                  <p>Focus is trapped while open and returned to the trigger when closed.</p>
+                  <button class="btn" type="button" data-modal-target="demo-modal">
+                    Open dialog
+                  </button>
+                </article>
+
+                <article class="showcase-card">
+                  <h3>Alerts</h3>
+                  <div class="alert alert-success">
+                    <strong>Saved.</strong> Your changes are ready.
+                  </div>
+                  <div class="alert alert-warning">
+                    <strong>Review.</strong> This action affects published pages.
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <section id="panel-typography" role="tabpanel" aria-labelledby="tab-typography" hidden>
+              <div id="typography" class="type-specimen">
+                <p class="eyebrow">Current pairing</p>
+                <h2 id="current-font-title">EB Garamond + Plus Jakarta Sans</h2>
+                <p class="lead">
+                  Typography should supply character without making the reader work for it.
+                </p>
+                <blockquote>
+                  “Typography is what language looks like.” <cite>— Ellen Lupton</cite>
+                </blockquote>
+                <p>
+                  <strong>ABCDEFGHIJKLMNOPQRSTUVWXYZ</strong><br />abcdefghijklmnopqrstuvwxyz ·
+                  0123456789
+                </p>
+              </div>
+            </section>
+
+            <section id="panel-layouts" role="tabpanel" aria-labelledby="tab-layouts" hidden>
+              <div id="layouts" class="layout-preview">
+                <article class="layout-preview-main"><span>Article</span></article>
+                <aside class="layout-preview-side"><span>Sidebar</span></aside>
+              </div>
+            </section>
+
+            <section id="panel-motion" role="tabpanel" aria-labelledby="tab-motion" hidden>
+              <div id="motion" class="motion-demo">
+                <div class="motion-target" id="motion-target">Purposeful motion</div>
+                <div class="cluster">
+                  <button class="btn-outline" type="button" data-motion="fade">Fade</button>
+                  <button class="btn-outline" type="button" data-motion="slide">Slide</button>
+                  <button class="btn-outline" type="button" data-motion="pulse">Pulse</button>
+                </div>
+                <p class="small">Animations honor <code>prefers-reduced-motion</code>.</p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="install-title">
+        <div class="container split-section">
+          <div>
+            <p class="eyebrow">Installation</p>
+            <h2 id="install-title">Start with the source, ship the bundle</h2>
+            <p>
+              Develop against the modular files, then run the build to generate production-ready CSS
+              and JavaScript.
+            </p>
+          </div>
+          <pre class="code-block"><code>npm install
+npm run build
+
+&lt;link rel="stylesheet" href="dist/syntax.css"&gt;
+&lt;script src="dist/syntax.js" defer&gt;&lt;/script&gt;</code></pre>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <p>Syntax is maintained by Stokewell and released under the MIT License.</p>
+        <p>
+          <a href="https://github.com/stokewell/syntax/issues">Report an issue</a> ·
+          <a href="../lab/">Component Lab</a> ·
+          <a href="https://github.com/stokewell/syntax">Repository</a>
+        </p>
+      </div>
+    </footer>
+
+    <div class="fixed-controls" aria-label="Display preferences">
+      <button
+        id="font-toggle"
+        class="font-toggle-btn"
+        type="button"
+        aria-haspopup="dialog"
+        aria-controls="font-selector-dialog"
+        aria-label="Choose typography"
+      >
+        <span aria-hidden="true">Aa</span>
+      </button>
+      <button
+        id="theme-toggle"
+        class="theme-toggle-btn"
+        type="button"
+        aria-label="Theme preference: system"
+      >
+        <svg id="theme-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path
+            d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-12.72-1.42 1.42M7.06 16.94l-1.42 1.42"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          />
+          <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2" />
+        </svg>
+      </button>
+    </div>
+
+    <div
+      class="font-selector-modal"
+      id="font-selector-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="font-selector-title"
+      hidden
+    >
+      <div class="font-selector-panel">
+        <div class="font-selector-header">
+          <h2 id="font-selector-title">Choose a font pairing</h2>
+          <button
+            id="font-selector-close"
+            class="font-selector-close"
+            type="button"
+            aria-label="Close typography chooser"
+          >
+            ×
+          </button>
+        </div>
+        <div
+          id="font-options"
+          class="font-options-grid"
+          role="radiogroup"
+          aria-label="Font pairings"
+        ></div>
+      </div>
+    </div>
+
+    <div
+      id="demo-modal"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="demo-modal-title"
+      hidden
+    >
+      <div class="modal-content">
+        <button class="modal-close" type="button" data-modal-close aria-label="Close dialog">
+          ×
+        </button>
+        <h2 id="demo-modal-title">A dependable dialog</h2>
+        <p>
+          This implementation records the trigger before moving focus, traps focus while open, and
+          restores focus when closed.
+        </p>
+        <div class="modal-actions">
+          <button class="btn-secondary" type="button" data-modal-close>Cancel</button>
+          <button class="btn" type="button" data-modal-close>Done</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/config/font-pairs.js" defer></script>
+    <script src="../js/utilities/theme-toggle.js" defer></script>
+    <script src="../js/utilities/font-switcher.js" defer></script>
+    <script src="../js/components/navigation.js" defer></script>
+    <script src="../js/components/modal.js" defer></script>
+    <script src="../js/components/web-components.js" defer></script>
+    <script src="../js/utilities/micro-animations.js" defer></script>
+    <script src="../js/main.js" defer></script>
+  </body>
+</html>

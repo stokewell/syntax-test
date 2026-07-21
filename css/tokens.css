@@ -1,0 +1,88 @@
+/* Syntax design tokens */
+:root {
+  color-scheme: light;
+
+  /* Spacing */
+  --baseline: 0.5rem;
+  --space-1: calc(var(--baseline) * 1);
+  --space-2: calc(var(--baseline) * 2);
+  --space-3: calc(var(--baseline) * 3);
+  --space-4: calc(var(--baseline) * 4);
+  --space-5: calc(var(--baseline) * 5);
+  --space-6: calc(var(--baseline) * 6);
+  --space-8: calc(var(--baseline) * 8);
+  --gutter: clamp(1rem, 4vw, 2rem);
+
+  /* Typography */
+  --font-heading: 'EB Garamond', 'Georgia', serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, 'BlinkMacSystemFont', 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', monospace;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-md: 1.125rem;
+  --font-size-lg: 1.5rem;
+  --font-size-xl: 2rem;
+  --font-size-xxl: clamp(2.75rem, 8vw, 5.5rem);
+
+  --line-height-tight: 1.15;
+  --line-height-normal: 1.55;
+  --line-height-loose: 1.75;
+  --max-text-width: 68ch;
+
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-loose: 0.04em;
+
+  /* Semantic colors: light theme */
+  --color-bg: #fbfaf8;
+  --color-bg-rgb: 251, 250, 248;
+  --color-surface: #f3efea;
+  --color-surface-raised: #fff;
+  --color-text: #24211f;
+  --color-text-rgb: 36, 33, 31;
+  --color-text-secondary: #625c57;
+  --color-border: #ddd5cd;
+  --color-border-strong: #b9ada2;
+  --color-subtle: var(--color-border);
+  --color-primary: #067474;
+  --color-primary-rgb: 6, 116, 116;
+  --color-on-primary: #fff;
+  --color-success: #247a3d;
+  --color-warning: #8a5b00;
+  --color-error: #b42318;
+  --color-code-bg: #211f1e;
+  --color-code-text: #f6f2ed;
+
+  /* Shape */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-round: 999px;
+
+  /* Elevation */
+  --shadow-xs: 0 1px 2px rgba(36, 33, 31, 0.04);
+  --shadow-sm: 0 2px 8px rgba(36, 33, 31, 0.06);
+  --shadow-md: 0 12px 32px rgba(36, 33, 31, 0.08);
+  --shadow-lg: 0 24px 64px rgba(36, 33, 31, 0.14);
+  --shadow-focus: 0 0 0 3px rgba(var(--color-primary-rgb), 0.32);
+
+  /* Motion */
+  --transition-fast: 150ms;
+  --transition-medium: 250ms;
+  --transition-slow: 400ms;
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* Layers */
+  --z-base: 0;
+  --z-nav: 20;
+  --z-dropdown: 40;
+  --z-modal: 80;
+  --z-toast: 100;
+}

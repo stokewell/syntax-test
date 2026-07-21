@@ -1,0 +1,98 @@
+/* 
+ * Typography utilities and enhancements
+ * Additional text-related utilities beyond base typography
+ */
+
+/* Block elements */
+p {
+  margin-top: 0;
+  margin-bottom: var(--space-md);
+}
+
+/* Optimal line length for readability */
+.readable-width {
+  max-width: 70ch;
+}
+
+/* Prevent widows in important descriptive text */
+.section-subtitle,
+.tab-description,
+.section-description,
+.hero-description,
+.feature-card p {
+  text-wrap: pretty; /* For modern browsers */
+}
+
+/* Fallback for browsers that don't support text-wrap: pretty */
+@supports not (text-wrap: pretty) {
+  .section-subtitle,
+  .tab-description,
+  .section-description,
+  .hero-description,
+  .feature-card p {
+    white-space: normal; /* Explicit fallback */
+  }
+  
+  /* Add non-breaking space via JavaScript for critical paragraphs */
+  .js-prevent-widows {
+    white-space: normal;
+  }
+}
+
+/* Highlight text with a subtle background */
+mark {
+  background-color: rgba(var(--color-primary-rgb), 0.1);
+  color: var(--color-text);
+  padding: 0.1em 0.2em;
+  border-radius: 2px;
+}
+
+/* Small text variant */
+.text-small {
+  font-size: 0.875em;
+}
+
+/* Large text variant */
+.text-large {
+  font-size: 1.125em;
+}
+
+/* Muted text */
+.text-muted {
+  color: var(--color-text-secondary);
+}
+
+/* Center text */
+.text-center {
+  text-align: center;
+}
+
+/* Right-aligned text */
+.text-right {
+  text-align: right;
+}
+
+/* Truncate text with ellipsis */
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Heading with a subtle line */
+.heading-with-line {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.heading-with-line::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    rgba(var(--color-text-rgb), 0.15),
+    transparent
+  );
+}

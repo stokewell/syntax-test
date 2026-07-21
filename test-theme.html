@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme Test</title>
+  <style>
+    /* Minimal theme styles */
+    :root {
+      --background: white;
+      --text: black;
+    }
+    
+    [data-theme="dark"] {
+      --background: #121212;
+      --text: white;
+    }
+    
+    body {
+      background: var(--background);
+      color: var(--text);
+      font-family: system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      transition: background 0.3s, color 0.3s;
+    }
+    
+    button {
+      padding: 10px 20px;
+      margin: 20px;
+      cursor: pointer;
+    }
+    
+    #status {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Theme Toggle Test</h1>
+  
+  <button id="theme-toggle">Toggle Theme</button>
+  <button id="dump-debug">Show Debug Info</button>
+  
+  <div id="status"></div>
+  
+  <script>
+    // Simple theme toggle
+    const toggleBtn = document.getElementById('theme-toggle');
+    const debugBtn = document.getElementById('dump-debug');
+    const status = document.getElementById('status');
+    const html = document.documentElement;
+    
+    // Show debug info
+    function updateStatus() {
+      status.innerHTML = `
+        <p>Current theme: ${html.getAttribute('data-theme') || 'none'}</p>
+        <p>LocalStorage theme: ${localStorage.getItem('preferred-theme') || 'none'}</p>
+        <p>System preference: ${window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'}</p>
+      `;
+    }
+    
+    // Simple toggle function
+    function toggleTheme() {
+      const currentTheme = html.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      console.log(`Toggling from ${currentTheme} to ${newTheme}`);
+      
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('preferred-theme', newTheme);
+      
+      updateStatus();
+    }
+    
+    // Initialize
+    const savedTheme = localStorage.getItem('preferred-theme');
+    if (savedTheme) {
+      html.setAttribute('data-theme', savedTheme);
+    }
+    
+    // Event listeners
+    toggleBtn.addEventListener('click', toggleTheme);
+    debugBtn.addEventListener('click', updateStatus);
+    
+    // Initial status
+    updateStatus();
+  </script>
+</body>
+</html>

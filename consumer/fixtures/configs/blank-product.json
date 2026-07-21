@@ -1,0 +1,34 @@
+{
+  "$schema": "https://raw.githubusercontent.com/stokewell/syntax/main/consumer/schema/syntax-project.schema.json",
+  "schemaVersion": 1,
+  "syntaxVersion": "1.2.0",
+  "project": {
+    "name": "Signal Kit",
+    "slug": "signal-kit",
+    "description": "A compact product shell for testing a useful promise before building the full application.",
+    "author": "Example Studio",
+    "canonicalUrl": "https://example.com/signal-kit/",
+    "repositoryUrl": "https://github.com/example/signal-kit",
+    "primaryAction": {
+      "label": "Try the concept",
+      "destination": "#main-content"
+    },
+    "secondaryAction": {
+      "label": "Read the source",
+      "destination": "https://github.com/example/signal-kit"
+    }
+  },
+  "recipe": {
+    "id": "blank",
+    "version": 1,
+    "data": {
+      "eyebrow": "Product prototype",
+      "note": "One promise, one action, and enough system to make the next decision with confidence."
+    }
+  },
+  "visualDirection": "product",
+  "accentColor": "#6D4AFF",
+  "features": ["theme"],
+  "mode": "prototype",
+  "deployment": "none"
+}

@@ -1,0 +1,16 @@
+/* ============================================
+   Developer Tools
+   ============================================ */
+
+/* Optional baseline grid overlay for development alignment checks */
+body.show-grid::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+  background-size: 100% var(--baseline);
+  pointer-events: none;
+  z-index: 9999;
+}
+

@@ -1,0 +1,29 @@
+/* Feature layouts */
+.features-section {
+  position: relative;
+  overflow: clip;
+  padding-block: clamp(4rem, 10vw, 7rem);
+  border-block: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: var(--space-3);
+}
+
+.feature-list {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.feature-list li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-1);
+  align-items: start;
+}
